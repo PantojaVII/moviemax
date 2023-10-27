@@ -1,13 +1,253 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Cores */
+:root {
+  --primary: #0075fd;
+  --secondary: #1e90ff;
+  --background-Buttons: #19161f;
+  --background-grey: #19161f;
+  --color-black: #0d0d0f;
+  --color-gray: #72757a;
+  --color-green: #4caf50;
+  --color-dark-red: #b81100;
+  --color-white: #ffffff;
+}
+
+/* Fontes */
+:root {
+  /* Textos normais */
+  --font-regular: "Roboto", sans-serif;
+  --font-weight-regular: 400;
+  --font-size-regular: 16px;
+
+  /* H1 */
+  --font-h1: "Roboto", sans-serif;
+  --font-weight-h1: 500;
+  --font-size-h1: 24px;
+
+  /* Botões e chamadas de ação */
+  --font-button: "Roboto", sans-serif;
+  --font-weight-button: 700;
+  --font-size-button: 18px;
+
+  /* Destaques ou ênfase */
+  --font-emphasis: "Roboto", sans-serif;
+  --font-weight-emphasis: 800;
+  /* Extrabold */
+  --font-size-emphasis: 14px;
+
+  /* Links */
+  --font-link: "Roboto", sans-serif;
+  --font-weight-link: 500;
+  --font-size-link: 16px;
+
+  /* H2 */
+  --font-h2: "Roboto", sans-serif;
+  --font-weight-h2: 500;
+  --font-size-h2: 20px;
+
+  /* H3 */
+  --font-h3: "Roboto", sans-serif;
+  --font-weight-h3: 500;
+  --font-size-h3: 18px;
+
+  /* Legendas e detalhes */
+  --font-legend: "Roboto", sans-serif;
+  --font-weight-legend: 400;
+  --font-size-legend: 14px;
+
+  /* Destaques */
+  --font-highlight: "Roboto", sans-serif;
+  --font-weight-highlight: 800;
+  /* Extrabold */
+  --font-size-highlight: 3rem;
+}
+
+/* Classe para Textos Normais */
+.text-normal {
+  font-family: var(--font-regular);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-regular);
+}
+
+/* Classe para H1 */
+.h1 {
+  font-family: var(--font-h1);
+  font-weight: var(--font-weight-h1);
+  font-size: var(--font-size-h1);
+}
+
+/* Classe para Botões e Chamadas de Ação */
+.button {
+  font-family: var(--font-button);
+  font-weight: var(--font-weight-button);
+  font-size: var(--font-size-button);
+}
+/* Classe para Títulos menores e Chamadas de Ação */
+.titleSections {
+  font-family: var(--font-button);
+  font-weight: var(--font-weight-button);
+  font-size: 24px;
+}
+
+/* Classe para Destaques ou Ênfase */
+.emphasis {
+  font-family: var(--font-emphasis);
+  font-weight: var(--font-weight-emphasis);
+  font-size: var(--font-size-emphasis);
+}
+
+/* Classe para Links */
+.link {
+  font-family: var(--font-link);
+  font-weight: var(--font-weight-link);
+  font-size: var(--font-size-link);
+}
+
+/* Classe para H2 */
+.h2 {
+  font-family: var(--font-h2);
+  font-weight: var(--font-weight-h2);
+  font-size: var(--font-size-h2);
+}
+
+/* Classe para H3 */
+.h3 {
+  font-family: var(--font-h3);
+  font-weight: var(--font-weight-h3);
+  font-size: var(--font-size-h3);
+}
+
+/* Classe para Legendas e Detalhes */
+.legend {
+  font-family: var(--font-legend);
+  font-weight: var(--font-weight-legend);
+  font-size: var(--font-size-legend);
+}
+
+/* Classe para Destaques Grandes */
+.highlight-large {
+  font-family: var(--font-highlight);
+  font-weight: var(--font-weight-highlight);
+  font-size: var(--font-size-highlight);
+}
+.shadow-inside {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent 50%, black 100%);
+}
+.logo-form-login {
+  text-align: center;
+}
+.logo-form-login .h1 {
+  font-weight: bold;
+}
+.logo-form-login h1 {
+  margin-top: 24px;
+}
+.texts-attention {
+  font-size: 14px;
+  margin: 24px;
+}
+
+span {
+  color: #666;
+  font-weight: bold;
+}
+
+.texts-links span {
+  font-size: 14px;
+}
+.texts-links .link {
+  font-weight: bold;
+  color: var(--secondary);
+  text-decoration: none;
+  margin-left: 8px;
+}
+.logo {
+  font-weight: bold;
+  margin: 0 auto;
+}
+.section-divide-2 {
+  display: flex;
+  padding: 0 24px;
+  gap: 8px;
+}
+
+/* Cards movies  */
+.CardMovie img {
+  transition: transform 0.3s; /* Adicione uma transição à propriedade 'transform' */
+}
+.CardMovie:hover img {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.CardMovie-Title {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  transition: 0.3s;
+}
+.CardMovie-Title:hover {
+  cursor: pointer;
+
+  color: var(--primary);
+}
+.CardMovie-Gender {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.CardMovie-age {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.CardMovie-age span {
+  padding: 0 16px;
+  border-style: solid;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: var(--color-gray);
+}
+.CardMovie-Rating {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.CardMovie-Rating .icon {
+  font-size: 18px;
+  color: yellow;
+}
+.icon {
+  font-size: 18px;
+}
+
+.type {
+  color: var(--color-gray);
+}
+.Overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px; /* Largura do degradê */
+  height: 100%;
+  background: linear-gradient(to right, transparent 0%, #0d0d0f 100%);
 }

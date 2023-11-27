@@ -72,7 +72,7 @@ code {
   --font-highlight: "Roboto", sans-serif;
   --font-weight-highlight: 800;
   /* Extrabold */
-  --font-size-highlight: 3rem;
+  --font-size-highlight: 2.5rem;
 }
 
 /* Classe para Textos Normais */
@@ -161,6 +161,10 @@ code {
   font-size: 14px;
   margin: 24px;
 }
+.error-message {
+  color: var(--color-dark-red);
+  transition: 0.3s;
+}
 
 span {
   color: #666;
@@ -178,7 +182,6 @@ span {
 }
 .logo {
   font-weight: bold;
-  margin: 0 auto;
 }
 .section-divide-2 {
   display: flex;
@@ -187,13 +190,18 @@ span {
 }
 
 /* Cards movies  */
-.CardMovie img {
-  transition: transform 0.3s; /* Adicione uma transição à propriedade 'transform' */
+.SectionbuttonContainer{
+  transition: 0.3s;
 }
-.CardMovie:hover img {
-  transform: scale(1.1);
+.SectionbuttonContainer:hover .CardMovie {
+  position: relative;
+  background-color: var(--background-grey);
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  transform: scale(1.3);
   cursor: pointer;
 }
+
 .CardMovie-Title {
   font-size: 18px;
   font-weight: bold;

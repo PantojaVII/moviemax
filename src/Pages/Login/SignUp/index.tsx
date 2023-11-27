@@ -1,6 +1,6 @@
+/* index.tsx */
 import BackgroudImage from "../../../Components/BackgroudImage";
 import FormSignUp from "../../../Components/Forms/FormSignUp";
- 
 import SignUpStyled from "./SignUpStyled";
 
 export default function SignUp() {

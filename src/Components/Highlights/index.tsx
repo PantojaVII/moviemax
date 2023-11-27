@@ -1,39 +1,41 @@
+import IMovies from "../../Interfaces/IMovies";
 import Button from "../Button";
 import HighlightsStyled from "./HighlightsStyled";
 import { AiOutlinePlayCircle } from 'react-icons/ai';
 
 interface HighlightsProps {
-  backgroundImg?: string;
+  movieHighlight: IMovies;
 }
 
-export default function Highlights({ backgroundImg }: HighlightsProps) {
+export default function Highlights({ movieHighlight }: HighlightsProps) {
+  console.log(movieHighlight);
   return (
-    <HighlightsStyled $backgroundImg={backgroundImg}>
-      <div className="HighLights-Content">
-        <div className="HighLights-Button">
-          <Button
-            value="Filme"
-            backgroundColor="var(--background-Buttons)"
-          ></Button>
+    <>
+      <HighlightsStyled $backgroundImg={movieHighlight.highlight}>
+        <div className="HighLights-Content">
+          <div className="HighLights-Button">
+            <Button
+              value="Filme"
+              backgroundColor="var(--background-Buttons)"
+            ></Button>
+          </div>
+          <div className="HighLights-title">
+            <h2 className="highlight-large">{movieHighlight.name}</h2>
+          </div>
+          <div className="HighLights-info">
+            {movieHighlight.info.map((infoItem, index) => (
+              <li key={index} className="h2">{infoItem}</li>
+            ))}
+          </div>
+          <div className="HighLights-watch">
+            <Button
+              icon={<AiOutlinePlayCircle></AiOutlinePlayCircle>}
+              value="Assistir"
+              backgroundColor="var(--primary)"
+            ></Button>
+          </div>
         </div>
-        <div className="HighLights-title">
-          <h2 className="highlight-large">Homem aranha sem volta pra casa</h2>
-        </div>
-        <div className="HighLights-info">
-          <li className="h2">hd</li>
-          <li className="h2">Fime</li>
-          <li className="h2">Marvel</li>
-          <li className="h2">Heróis</li>
-        </div>
-        <div className="HighLights-watch">
-          {" "}
-          <Button
-            icon={<AiOutlinePlayCircle></AiOutlinePlayCircle>}
-            value="Assistir"
-            backgroundColor="var(--primary)"
-          ></Button>
-        </div>
-      </div>
-    </HighlightsStyled>
+      </HighlightsStyled>
+    </>
   );
 }

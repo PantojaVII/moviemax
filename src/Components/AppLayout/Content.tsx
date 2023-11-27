@@ -7,7 +7,7 @@ interface ContentProps {
 
 const ContentStyled = styled.div`
   display: flex;
-  width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
  
 `;

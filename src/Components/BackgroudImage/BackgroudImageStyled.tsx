@@ -12,6 +12,14 @@ const BackgroudImageStyled = styled.main < BackgroudImageStyledProps > `
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
+    @media screen and (max-width: 790px) {
+    /* Adjust styles for smaller screens */
+    display: none;
+ 
+
+    /* Reset height for smaller screens */
+ 
+  }
  `;
 
 export default BackgroudImageStyled;

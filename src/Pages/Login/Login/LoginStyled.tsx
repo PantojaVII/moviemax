@@ -1,14 +1,21 @@
+/* LoginStyled.tsx */
 import { styled } from "styled-components";
 
 interface HomeStyledProps {
-    $backgroundImg?: string;
-    
+  $backgroundImg?: string;
 }
 
-const HomeStyled = styled.main < HomeStyledProps > `
-    height: 100vh;
- 
+const LoginStyled = styled.main<HomeStyledProps>`
+  height: 100vh;
 
+  @media screen and (max-width: 790px) {
+    /* Adjust styles for smaller screens */
+    display: flex;
+    flex-direction: column;
+    
+    /* Reset height for smaller screens */
+    height: auto;
+  }
 `;
 
-export default HomeStyled;
+export default LoginStyled;

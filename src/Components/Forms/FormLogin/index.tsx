@@ -1,17 +1,54 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Button";
 import InputText from "../../InputText";
 import FormLoginStyled from "./FormLoginStyled";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoFacebook } from "react-icons/io";
-/* 
-interface FormLoginProps {
-    children: ReactNode;
-}
+import { useState } from "react";
+import http from "../../../http";
 
- */
 
 export default function FormLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // Estado para armazenar a mensagem de erro
+  
+  const navigate = useNavigate();
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const user = {
+      email: email,
+      password: password,
+
+      // Outros campos, se houver
+    };
+
+    http
+      .post("login/login/", user)
+      .then((response) => {
+        sessionStorage.setItem("token", response.data.token);
+        setEmail("");
+        setPassword("");
+        navigate("/app");
+      })
+      .catch((erro) => {
+        if (
+          erro &&
+          erro.response &&
+          erro.response.data &&
+          erro.response.data.message
+        ) {
+          setError(erro.response.data.message); // Defina a mensagem de erro com base na resposta do erro
+        } else {
+          
+          setError(
+            "Aconteceu um erro inesperado ao efetuar o seu login! Entre em contato com o suporte."
+          );
+        }
+      });
+  };
+
   return (
     <FormLoginStyled>
       <div className="top-form-login">
@@ -43,26 +80,31 @@ export default function FormLogin() {
         </div>
         {/* Login inpust */}
         <div>
-          <form className="w-full" action="">
+          <form className="w-full" onSubmit={handleSubmit}>
             <InputText
               type="email"
               label="Email"
               placeholder="Digite seu email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} // Função para atualizar o valor
             />
             <InputText
               type="password"
-              label="Senha"
-              placeholder="Digite seu email"
+              label="Sua senha"
+              placeholder="Digite sua senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} // Função para atualizar o valor
             />
+            {error && <div className="error-message">{error}</div>}
+            {/* {error && ...}: Esta é uma expressão condicional em JavaScript que verifica se a variável error possui um valor verdadeiro (ou seja, não é uma string vazia ou null). Se a variável error for verdadeira, o que estiver à direita de && será avaliado. */}
             <div className="section-ForgotPassword">
               <Link to={"forgot-password/"} className="ForgotPassword">
                 Esqueci minha senha
               </Link>
             </div>
-            <Link to={"app"}>
-              <Button value="Entrar" />
-            </Link>
+            <Button type="submit" value="Entrar" />
           </form>
+
           <div className="section-sign-up">
             <span>Não tem uma conta ?</span>
             <Link className="sign-up" to={"sign-up"}>

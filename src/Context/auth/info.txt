@@ -1,0 +1,52 @@
+import { createContext, useState } from "react";
+import UserI from "../../Interfaces/UserI";
+
+interface AuthContextType {
+  user: UserI | null; // Defina o tipo do usuário ou null
+
+  login: (user: UserI) => void; // Uma função que aceita um argumento do tipo UserI e não retorna nada (void), usada para definir o usuário autenticado.
+
+  logout: () => void; //Uma função que aceita um argumento do tipo UserI e não retorna nada (void), usada para definir o usuário autenticado.
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+/* Aqui, você cria o contexto com a interface que você definiu, inicializado com undefined como valor padrão */
+
+
+
+
+
+
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  /* Este é o componente AuthProvider, que envolve outros componentes da sua aplicação e fornece acesso aos dados de autenticação.
+
+children é um prop que representa os elementos filhos (componentes) que serão envolvidos pelo AuthProvider. */
+
+  const [user, setUser] = useState<UserI | null>(null);
+  /* Aqui, você usa o hook useState para criar um estado chamado user. O useState aceita o valor inicial, que é null no seu caso. O tipo do estado é definido como UserI | null, ou seja, ele pode conter um objeto do tipo UserI ou ser null. */
+
+  const login = (user: UserI) => {
+    setUser(user);
+    console.log(user);
+  };
+  const logout = () => {
+    console.log("logout");
+  };
+  /* Estas são funções que você pode usar para realizar o login (login) e o logout (logout). A função login recebe um objeto do tipo UserI como argumento e define o estado user com esse objeto. A função logout apenas imprime uma mensagem no console. */
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+/* Aqui, você fornece o contexto criado com os valores user, login, e logout. Isso torna esses dados e funções disponíveis para todos os componentes dentro do contexto do AuthProvider. Os elementos children são renderizados como filhos dentro do contexto. */
+
+export { AuthContext, AuthProvider };

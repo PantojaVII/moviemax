@@ -7,6 +7,10 @@ import CardMovieModelOne from "../../../Components/CardsMovies/ModelOne";
 import CardMovieModelTwo from "../../../Components/CardsMovies/ModelTwo";
 import { styled } from "styled-components";
 import SectionSlideMovies from "../../../Components/SectionSlideMovies";
+import { useEffect, useState } from "react";
+import IMovies from "../../../Interfaces/IMovies";
+import http from "../../../http";
+
 
 const img = "/movies/capahomem.png";
 const img1 = "/movies/01.jpg";
@@ -14,46 +18,40 @@ const img2 = "/movies/02.jpg";
 const img3 = "/movies/03.jpg";
 
 const imgHeig1 = "/movies/1.jpg";
-const imgHeig2 = "/movies/2.jpg";
-const imgHeig3 = "/movies/3.jpg";
-const imgHeig4 = "/movies/4.jpg";
-const imgHeig5 = "/movies/homemaranha.jpeg";
+
 
 const SectionOneSectionTopStyled = styled.div``;
 
-interface HomeProps {}
-export default function Home({}: HomeProps) {
+interface HomeProps { }
+export default function Home({ }: HomeProps) {
+  const [movies, setMovies] = useState<IMovies[]>([]);
+  const [highlight, setHighlight] = useState<IMovies>();
+
+  useEffect(() => {
+    http.get('Movies/')
+      .then(returnMovies => {
+        setMovies(returnMovies.data);
+        setHighlight(returnMovies.data[0]);
+      })
+      .catch(erro => {
+        console.log(erro);
+      });
+  }, []);
+
   return (
+
     <Container>
       <SectionOneStyled>
-        
         <SectionOneSectionTopStyled>
-          <Highlights backgroundImg={img}></Highlights>
+          {highlight && <Highlights movieHighlight={highlight}></Highlights>}
         </SectionOneSectionTopStyled>
-
-        <SectionSlideMovies title="Mais assistidos">
-          <CardMovieModelTwo backgroundImg={imgHeig1}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig2}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig3}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig4}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig5}></CardMovieModelTwo>
-        </SectionSlideMovies>
+        <SectionSlideMovies title="Filmes" movies={movies}/>
         
-        <SectionSlideMovies title="Mais assistidos">
-          <CardMovieModelTwo backgroundImg={imgHeig5}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig3}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig4}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig1}></CardMovieModelTwo>
-          <CardMovieModelTwo backgroundImg={imgHeig2}></CardMovieModelTwo>
-        </SectionSlideMovies>
-      
       </SectionOneStyled>
-
-      
       <SectionTwoStyled title={"Melhores filmes"}>
-        <CardMovieModelOne backgroundImg={img1}></CardMovieModelOne>
-        <CardMovieModelOne backgroundImg={img2}></CardMovieModelOne>
-        <CardMovieModelOne backgroundImg={img3}></CardMovieModelOne>
+        {movies.map((movie) => (
+          <CardMovieModelOne movie={movie}></CardMovieModelOne>
+        ))}
       </SectionTwoStyled>
     </Container>
   );

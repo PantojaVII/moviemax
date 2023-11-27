@@ -22,8 +22,8 @@ const imgHeig5 = "/movies/homemaranha.jpeg";
 
 const SectionOneSectionTopStyled = styled.div``;
 
-interface PlayerProps {}
-export default function PagePlayer({}: PlayerProps) {
+interface PlayerProps { }
+export default function PagePlayer({ }: PlayerProps) {
   return (
     <Container>
       <SectionOneStyled>
@@ -37,7 +37,8 @@ export default function PagePlayer({}: PlayerProps) {
       </SectionOneStyled>
 
       <SectionTwoStyled title={"Recomendados"}>
-        <CardMovieModelTwo
+        {/*
+         <CardMovieModelTwo
           width={"220px"}
           backgroundImg={imgHeig5}
         ></CardMovieModelTwo>
@@ -50,7 +51,8 @@ export default function PagePlayer({}: PlayerProps) {
         <CardMovieModelTwo
           width={"220px"}
           backgroundImg={imgHeig4}
-        ></CardMovieModelTwo>
+        ></CardMovieModelTwo> 
+        */}
       </SectionTwoStyled>
     </Container>
   );

@@ -7,7 +7,6 @@ import { styled } from "styled-components";
 const SignUpStyled = styled.div`
   padding-top:  68px;
 
-
   .SingUp {
     margin: 68px auto;
     padding-bottom: 24px;

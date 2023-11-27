@@ -13,34 +13,50 @@ const HighlightsStyled = styled.div<HighlightsStyledProps>`
       transparent 10%,
       rgba(0, 0, 0, 0.9) 100%
     ),
-    url(${(props) => props.$backgroundImg});
+  url(${(props) => props.$backgroundImg});
   background-repeat: no-repeat;
-  background-position: center; /* Centraliza a imagem horizontal e verticalmente */
-  background-size: cover; /* Faz a imagem ocupar todo o espaço da div mantendo a proporção */
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 24px;
 
   .HighLights-Content {
     height: 100%;
-    padding: 56px;
+    padding: 16px; /* Reduzi o padding para ocupar menos espaço */
     display: flex;
     justify-content: space-around;
     flex-direction: column;
   }
+
   .HighLights-Button {
-    width: 160px;
+    width: 120px; /* Reduzi o tamanho do botão */
+   
   }
+
   .HighLights-title {
-    width: 400px;
+    width: 300px; /* Reduzi a largura do título */
+     
   }
+
   .HighLights-info {
     display: flex;
-    gap: 12px;
+    gap: 8px; /* Reduzi o espaço entre os itens do flex container */
   }
+
   .HighLights-info .h2 {
     color: var(--color-gray);
     font-weight: bold;
+    font-size: 14px; /* Reduzi o tamanho da fonte do elemento com classe h2 */
   }
+
   .HighLights-watch {
-    width: 320px;
+    width: 220px; /* Reduzi a largura do bloco HighLights-watch */
+ 
+  }
+
+  @media (max-width: 768px) {
+    width: auto;
+    height: auto; /* Ajustei a altura automaticamente conforme o conteúdo */
   }
 `;
+
 export default HighlightsStyled;

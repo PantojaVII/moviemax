@@ -28,7 +28,7 @@ export default function PageMovies({}: PageMoviesProps) {
     <Container>
       <SectionOneStyled>
         <SectionOneSectionTopStyled>
-          <SectionSlideMovies title="Top Semanal">
+{/*           <SectionSlideMovies title="Top Semanal">
             <Ranking title="1">
               <CardMovieModelOne backgroundImg={img1}></CardMovieModelOne>
             </Ranking>
@@ -44,31 +44,24 @@ export default function PageMovies({}: PageMoviesProps) {
             <Ranking title="5">
               <CardMovieModelOne backgroundImg={img3}></CardMovieModelOne>
             </Ranking>
-          </SectionSlideMovies>
+          </SectionSlideMovies> */}
 
-          <SectionSlideMovies title="Mais assistidos">
+{/*           <SectionSlideMovies title="Mais assistidos">
             <CardMovieModelTwo backgroundImg={imgHeig5}></CardMovieModelTwo>
             <CardMovieModelTwo backgroundImg={imgHeig3}></CardMovieModelTwo>
             <CardMovieModelTwo backgroundImg={imgHeig4}></CardMovieModelTwo>
             <CardMovieModelTwo backgroundImg={imgHeig1}></CardMovieModelTwo>
             <CardMovieModelTwo backgroundImg={imgHeig2}></CardMovieModelTwo>
-          </SectionSlideMovies>
-
-          <SectionSlideMovies title="Ação">
-            <CardMovieModelTwo backgroundImg={imgHeig5}></CardMovieModelTwo>
-            <CardMovieModelTwo backgroundImg={imgHeig3}></CardMovieModelTwo>
-            <CardMovieModelTwo backgroundImg={imgHeig4}></CardMovieModelTwo>
-            <CardMovieModelTwo backgroundImg={imgHeig1}></CardMovieModelTwo>
-            <CardMovieModelTwo backgroundImg={imgHeig2}></CardMovieModelTwo>
-          </SectionSlideMovies>
+          </SectionSlideMovies> */}
+ 
           
         </SectionOneSectionTopStyled>
       </SectionOneStyled>
 
       <SectionTwoStyled title={"Mais bem avaliados"}>
-        <CardMovieModelOne backgroundImg={img1}></CardMovieModelOne>
+{/*         <CardMovieModelOne backgroundImg={img1}></CardMovieModelOne>
         <CardMovieModelOne backgroundImg={img2}></CardMovieModelOne>
-        <CardMovieModelOne backgroundImg={img3}></CardMovieModelOne>
+        <CardMovieModelOne backgroundImg={img3}></CardMovieModelOne> */}
       </SectionTwoStyled>
     </Container>
   );

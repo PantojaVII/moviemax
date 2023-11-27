@@ -7,25 +7,25 @@ import Home from "./Pages/App/home";
 import AppLayout from "./Components/AppLayout";
 import PageMovies from "./Pages/App/Movies";
 import PagePlayer from "./Pages/App/Player";
- 
+import AuthProvider from "./Context/auth/AuthProvider";
 
 function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="*" element={<div>Página não encontrada</div>} />s
-        
-        <Route path="app/" element={<AppLayout />} >
-          <Route index element={<Home/>}></Route>
-          <Route path="filmes" element={<PageMovies/>}></Route>
-          <Route path="player" element={<PagePlayer/>}></Route>
-        </Route>
-      
-      
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="sign-up" element={<SignUp />} />
       </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="app/" element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="filmes" element={<PageMovies />} />
+            <Route path="player" element={<PagePlayer />} />
+          </Route>
+        </Routes>
+      </AuthProvider> 
     </BrowserRouter>
   );
 }

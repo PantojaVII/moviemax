@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CardMovieModelTwoStyled from "./CardMovieModelTwoStyled";
 import { BsFillStarFill } from "react-icons/bs";
 import IMovies from "../../../Interfaces/IMovies";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface CardMovieModelTwoProps {
   movie: IMovies;
@@ -16,18 +16,47 @@ export default function CardMovieModelTwo({
   width = "250px",
 }: CardMovieModelTwoProps) {
   const [showTrailer, setShowTrailer] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
 
   const handleMouseEnter = () => {
-    setShowTrailer(true);
+    // Limpa qualquer timeout pendente
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Define showTrailer como true após um atraso de 2 segundos
+    timeoutRef.current = window.setTimeout(() => {
+      setShowTrailer(true);
+      const cardMovieElement = document.getElementById("CardMovieModelTwoStyled");
+      if (cardMovieElement) {
+        cardMovieElement.style.zIndex = "100";
+      }
+    }, 500);
   };
 
   const handleMouseLeave = () => {
-    setShowTrailer(false);
+    // Limpa qualquer timeout pendente
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Define showTrailer como false após um pequeno atraso
+    timeoutRef.current = window.setTimeout(() => {
+      setShowTrailer(false);
+      const cardMovieElement = document.getElementById("CardMovieModelTwoStyled");
+      if (cardMovieElement) {
+        cardMovieElement.style.zIndex = "0";
+      }
+    }, 200);
   };
 
+  useEffect(() => {
+    // Cleanup the state when the component unmounts
+    return () => setShowTrailer(false);
+  }, []);
   return (
     <CardMovieModelTwoStyled
-      className="CardMovie"
+      id="CardMovieModelTwoStyled"
       width={width}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -36,13 +65,13 @@ export default function CardMovieModelTwo({
         <Link to="/app/player">
           {showTrailer ? (
             <div className="zoom">
-              {/*               <iframe
+              <iframe
                 className="trailer"
                 src={`${movie.playerTrailer}?autoplay=0&controls=0&modestbranding=1`}
                 title={movie.name}
                 allowFullScreen
-              ></iframe> */}
-              <img src={movie.coverOne} alt={movie.name} />
+              ></iframe>
+              {/* <img src={movie.coverOne} alt={movie.name} /> */}
               <div className="CardMovie-Title ml-2 mt-4">
                 {movie.name}
               </div>
@@ -53,7 +82,7 @@ export default function CardMovieModelTwo({
                   <span className="divider">|</span>
                   {movie.info.includes('FILME') ? 'Filme' : movie.info.includes('SERIE') ? 'Série' : ''}
                 </div>
-                <p>{movie.synopsis}</p>
+                <p className="synopsis">{movie.synopsis}</p>
               </div>
             </div>
           ) : (

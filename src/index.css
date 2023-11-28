@@ -190,17 +190,7 @@ span {
 }
 
 /* Cards movies  */
-.SectionbuttonContainer{
-  transition: 0.3s;
-}
-.SectionbuttonContainer:hover .CardMovie {
-  position: relative;
-  background-color: var(--background-grey);
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  transform: scale(1.3);
-  cursor: pointer;
-}
+
 
 .CardMovie-Title {
   font-size: 18px;

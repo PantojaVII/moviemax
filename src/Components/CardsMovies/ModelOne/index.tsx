@@ -4,6 +4,7 @@ import { BiSolidTimer } from "react-icons/bi";
 import { BsFillStarFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import IMovies from "../../../Interfaces/IMovies";
+import { useEffect, useState, useRef } from "react";
 interface CardMovieModelOneProps {
   movie: IMovies;
   children?: React.ReactNode;
@@ -13,10 +14,39 @@ export default function CardMovieModelOne({
   children,
   movie,
 }: CardMovieModelOneProps) {
+  const timeoutRef = useRef<number | null>(null);
+  const handleMouseEnter = () => {
+    // Limpa qualquer timeout pendente
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = window.setTimeout(() => {
+      const cardMovieElement = document.getElementById("CardMovieModelOneStyled");
+      if (cardMovieElement) {
+        cardMovieElement.style.zIndex = "200";
+      }
+    }, 500);
+  };
+
+  const handleMouseLeave = () => {
+    // Limpa qualquer timeout pendente
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
+      const cardMovieElement = document.getElementById("CardMovieModelOneStyled");
+      if (cardMovieElement) {
+        cardMovieElement.style.zIndex = "0";
+      }
+    }, 200);
+  };
   return (
     <CardMovieModelOneStyled
-      className="ModelOne"
+      id="CardMovieModelOneStyled"
       $backgroundImg={movie.coverTwo}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="CardMovieModelOne-ImgMovie">
         <Link to="/app/player">

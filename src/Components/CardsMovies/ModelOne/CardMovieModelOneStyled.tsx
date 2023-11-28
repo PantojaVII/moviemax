@@ -10,15 +10,14 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
   margin-bottom: 24px;
   transition: transform 0.3s;
   border-radius: 25px;
+  padding-right: 50px;
  
- padding-right: 50px;
-
   &:hover {
   position: relative;
-  z-index: 300;
-  transform: scale(1.4);
+  transform: scale(1.2);
+  transition-delay: 0.8s;
   cursor: pointer;
-  background-color: var(--secondary);
+ 
 }
   .CardMovieModelOne-ImgMovie {
     min-width: 160px;
@@ -28,15 +27,18 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
     width: 100%;
     height: 100%;
     border-radius: 15px;
+  
   }
 
   .CardMovieModelOne-Info {
+  
     display: flex;
     flex-direction: column;
     justify-content: space-around;
   }
 
   .CardMovieModelOne-Title {
+  
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -49,6 +51,7 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
     color: var(--primary);
   }
   .CardMovieModelOne-Gender {
+    
     display: flex;
     align-items: center;
     gap: 8px;
@@ -56,6 +59,7 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
     transition: 0.3s;
   }
   .CardMovieModelOne-Gender .genrer .inter-genre{
+    
     display: flex;
     width : auto ;
     align-items: center;
@@ -64,10 +68,12 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
   .CardMovieModelOne-Gender .genrer a{
     padding-left: 2px;
     margin-top: 4px;
+    
   }
   .CardMovieModelOne-Gender .genrer :hover{
     transition: 0.3s;
     color: var(--secondary);
+    
   }
 
   .CardMovieModelOne-age {
@@ -77,6 +83,7 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
     font-size: 14px;
   }
   .CardMovieModelOne-age span {
+    
     padding: 0 16px;
     border-style: solid;
     border-radius: 25px;

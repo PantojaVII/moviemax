@@ -6,8 +6,22 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
 
     min-width: ${(props) => props.width};
     max-width: ${(props) => props.width};
+    margin-left: 4px;
+    margin-right: 4px;
     overflow: visible; // Adicione esta linha
+    transition: 0.3s;
     
+&:hover {
+    position: relative;
+    background-color: var(--background-grey);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    transform: scale(1.3);
+    cursor: pointer;
+
+    transition: background-color 0.3s, transform 0.3s,  z-index 0.3s; 
+    transition-delay: 0.5s;
+}
   .CardMovieModeltwo-movie {
     max-width: ${(props) => props.width};
    }
@@ -16,9 +30,7 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
     border: none;
     border-radius: 8px;
   }
-  &:hover {
-    z-index: 100;
-  }
+ 
   img {
     width: 100%;
     border-radius: 25px;
@@ -61,6 +73,12 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
       width: 250px;
     }
   }
+  .synopsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
 `;
 
 export default CardMovieModelTwoStyled;

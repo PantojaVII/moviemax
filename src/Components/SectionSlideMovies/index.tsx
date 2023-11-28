@@ -1,52 +1,88 @@
-import React, { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
-import CardMovieModelTwo from "../CardsMovies/ModelTwo";
-import IMovies from "../../Interfaces/IMovies";
+import { useState, useRef, useEffect } from "react";
+
 
 interface SectionOneSectionbuttonProps {
   title: string;
-  movies: IMovies[];
+  children: React.ReactNode;
+  onScrollLeft?: () => void;
+  onScrollRight?: () => void;
 }
 
-const SectionbuttonContainer = styled.div<{ isHovered: boolean }>`
+const SectionbuttonContainer = styled.div`
   display: flex;
-  gap: 16px;
+  position: relative;
   max-width: 100%;
-  margin-bottom: 400px;
-  position: relative;
-  z-index: ${(props) => (props.isHovered ? 10 : 1)};
-`;
+ margin-bottom: 0;
+ `;
 
-const Movie = styled.div`
-  position: relative;
-`;
-
-const MoviesContainer = styled.div<{ containerWidth: number }>`
+const SectionbuttonStyled = styled.div<{ containerWidth: number }>`
   display: flex;
-  gap: 16px;
+  flex-direction: column;
   overflow-x: auto;
   max-width: ${(props) => props.containerWidth}px;
+  margin-bottom: 0;
+  height: 390px;
+  `;
 
-  &::-webkit-scrollbar {
-    width: none;
-    display: none;
+const ContentSectionbuttonStyled = styled.div`
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 41px;
+  padding-right: 110px;
+  padding-bottom: 41px;
+  padding-left: 80px;
+  gap: 36px;
+  position: relative;
+ 
+  &::-webkit-scrollbar { 
+   display: none;
   }
-
-  scrollbar-width: none;
   &::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 6px;
+    border-radius: 25px;
   }
-
   &::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+  
   }
+  transition: 0.3s;
 `;
 
-const SectionSlideMovies = ({ title, movies }: SectionOneSectionbuttonProps) => {
+const ScrollButton = styled.button`
+  position: absolute;
+  top: 50%; /* Adicionado para centralizar verticalmente */
+  width: 40px;
+  height: 40px;
+  background: var(--color-gray);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: auto 24px;
+  transition: 0.3s;
+  font-weight: bold;
+  transform: translateY(-50%); /* Adicionado para centralizar verticalmente */
+  &:hover {
+    background-color: var(--primary);
+  }
+  @media (max-width: 789px) {
+    display: none;
+  }
+  
+`;
+
+const SectionSlideMovies = ({
+  title,
+  children,
+  onScrollLeft,
+  onScrollRight,
+}: SectionOneSectionbuttonProps) => {
+  const contentRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -54,25 +90,65 @@ const SectionSlideMovies = ({ title, movies }: SectionOneSectionbuttonProps) => 
     }
   }, []);
 
+  const handleScrollLeft = () => {
+    if (contentRef.current) {
+      const scrollAmount = contentRef.current.scrollLeft - 500;
+      smoothScrollTo(contentRef.current, scrollAmount, 300);
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (contentRef.current) {
+      const scrollAmount = contentRef.current.scrollLeft + 500;
+      smoothScrollTo(contentRef.current, scrollAmount, 300);
+    }
+  };
+
+  function smoothScrollTo(element: HTMLElement, to: number, duration: number) {
+    const start = element.scrollLeft;
+    const change = to - start;
+    const increment = 10;
+
+    const animateScroll = function (elapsedTime: number) {
+      elapsedTime += increment;
+      const position = easeInOut(elapsedTime, start, change, duration);
+      element.scrollLeft = position;
+      if (elapsedTime < duration) {
+        setTimeout(function () {
+          animateScroll(elapsedTime);
+        }, increment);
+      }
+    };
+
+    animateScroll(0);
+  }
+
+  function easeInOut(
+    currentTime: number,
+    start: number,
+    change: number,
+    duration: number
+  ): number {
+    currentTime /= duration / 2;
+    if (currentTime < 1) {
+      return (change / 2) * currentTime * currentTime + start;
+    }
+    currentTime--;
+    return (-change / 2) * (currentTime * (currentTime - 2) - 1) + start;
+  }
+
   return (
-    <div>
-      <h1 className="titleSections">{title}</h1>
-      <SectionbuttonContainer
-        ref={containerRef}
-        isHovered={isHovered}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <MoviesContainer containerWidth={containerWidth}>
-          {movies.map((movie) => (
-            <Movie key={movie.id}>
-              <CardMovieModelTwo movie={movie} />
-            </Movie>
-          ))}
-        </MoviesContainer>
+    <SectionbuttonContainer ref={containerRef}>
+      <SectionbuttonStyled containerWidth={containerWidth}>
+        <h1 className="titleSections">{title}</h1>
+        <ContentSectionbuttonStyled ref={contentRef}>
+          {children}
+        </ContentSectionbuttonStyled>
         <div className="Overlay"></div>
-      </SectionbuttonContainer>
-    </div>
+      </SectionbuttonStyled>
+      <ScrollButton onClick={handleScrollLeft}>{"⇠"}</ScrollButton>
+      <ScrollButton style={{ right: 0 }} onClick={handleScrollRight}>{"⇢"}</ScrollButton>
+    </SectionbuttonContainer>
   );
 };
 

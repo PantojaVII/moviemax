@@ -16,5 +16,6 @@ interface IMovies {
   created_at: string;
   updated_at: string;
   hash_id_player: string;
+  file_size: number;
 }
 export default IMovies;

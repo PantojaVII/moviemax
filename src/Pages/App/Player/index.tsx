@@ -1,37 +1,42 @@
-import { HighlightSpanKind } from "typescript";
 import Container from "../../../Components/Container";
 import SectionOneStyled from "../../../Components/SectionOne";
 import SectionTwoStyled from "../../../Components/SectionTwoStyled";
-import Highlights from "../../../Components/Highlights";
-import CardMovieModelOne from "../../../Components/CardsMovies/ModelOne";
-import CardMovieModelTwo from "../../../Components/CardsMovies/ModelTwo";
 import { styled } from "styled-components";
-import SectionSlideMovies from "../../../Components/SectionSlideMovies";
 import MoviePlayer from "../../../Components/Player";
+import {  useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import IMovies from "../../../Interfaces/IMovies";
+import http from "../../../http";
 
-const img = "/movies/capahomem.png";
-const img1 = "/movies/01.jpg";
-const img2 = "/movies/02.jpg";
-const img3 = "/movies/03.jpg";
-
-const imgHeig1 = "/movies/1.jpg";
-const imgHeig2 = "/movies/2.jpg";
-const imgHeig3 = "/movies/3.jpg";
-const imgHeig4 = "/movies/4.jpg";
-const imgHeig5 = "/movies/homemaranha.jpeg";
 
 const SectionOneSectionTopStyled = styled.div``;
 
 interface PlayerProps { }
 export default function PagePlayer({ }: PlayerProps) {
+  // Use o hook useLocation para obter a localização (URL)
+  const { movieId } = useParams();
+  const [moviesRelated, setMoviesRelated] = useState<IMovies[]>([]);
+  const [recent, setRecent] = useState<IMovies[]>([]);
+  const [movie, setMovie] = useState<IMovies>();
+
+  useEffect(() => {
+    http.get(`Movies/${movieId}/`)
+      .then(returnMovie => {
+        setMovie(returnMovie.data);
+      })
+      .catch(erro => {
+        
+      });
+  }, []);
+
   return (
     <Container>
       <SectionOneStyled>
         <SectionOneSectionTopStyled>
           <MoviePlayer
-            url={
-              "https://www.youtube.com/embed/x6oF3Jxu7X0?si=nC3OjmeRmGL-yCjz"
-            }
+           /*  url={`${movie?.player}`} */
+            poster = {`${movie?.highlight}`}
+            size ={movie?.file_size}
           />
         </SectionOneSectionTopStyled>
       </SectionOneStyled>

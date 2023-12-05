@@ -6,6 +6,8 @@ interface ButtonProps {
   backgroundColor?: string;
   icon?: React.ReactElement;
   type?: "button" | "submit" | "reset"; // Adicione as opções aceitáveis para o tipo
+ 
+  /* A notação onClick?: () => void; é uma definição de propriedade em TypeScript que indica que a propriedade onClick deve ser uma função que não recebe nenhum argumento (() =>) e não retorna nenhum valor (void). */
 }
 
 export default function Button({ value, backgroundColor, icon, type }: ButtonProps) {

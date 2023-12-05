@@ -4,23 +4,29 @@ import InputText from "../../InputText";
 import FormLoginStyled from "./FormLoginStyled";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoFacebook } from "react-icons/io";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import http from "../../../http";
+import { useNotification  } from "../../../Context/notifications/NotificationContext";
 
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Estado para armazenar a mensagem de erro
+  const { showToast, dismissToast, openLoad } = useNotification();
   
+ 
   const navigate = useNavigate();
-  
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+ 
+    showToast('Aguarde, estamos carregando seu acesso !', ' 😎 ');
+ 
     const user = {
       email: email,
       password: password,
-
       // Outros campos, se houver
     };
 
@@ -31,6 +37,7 @@ export default function FormLogin() {
         setEmail("");
         setPassword("");
         navigate("/app");
+        dismissToast();
       })
       .catch((erro) => {
         if (
@@ -39,9 +46,10 @@ export default function FormLogin() {
           erro.response.data &&
           erro.response.data.message
         ) {
+          dismissToast();
           setError(erro.response.data.message); // Defina a mensagem de erro com base na resposta do erro
         } else {
-          
+          dismissToast();
           setError(
             "Aconteceu um erro inesperado ao efetuar o seu login! Entre em contato com o suporte."
           );
@@ -87,6 +95,7 @@ export default function FormLogin() {
               placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)} // Função para atualizar o valor
+              required={true}
             />
             <InputText
               type="password"
@@ -94,6 +103,7 @@ export default function FormLogin() {
               placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)} // Função para atualizar o valor
+              required={true}
             />
             {error && <div className="error-message">{error}</div>}
             {/* {error && ...}: Esta é uma expressão condicional em JavaScript que verifica se a variável error possui um valor verdadeiro (ou seja, não é uma string vazia ou null). Se a variável error for verdadeira, o que estiver à direita de && será avaliado. */}
@@ -113,6 +123,7 @@ export default function FormLogin() {
           </div>
         </div>
       </div>
+
     </FormLoginStyled>
   );
 }

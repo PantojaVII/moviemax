@@ -8,24 +8,26 @@ import AppLayout from "./Components/AppLayout";
 import PageMovies from "./Pages/App/Movies";
 import PagePlayer from "./Pages/App/Player";
 import AuthProvider from "./Context/auth/AuthProvider";
-
+import { NotificationContextProvider } from "./Context/notifications/NotificationContext";
 function Router() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="sign-up" element={<SignUp />} />
-      </Routes>
-      <AuthProvider>
+      <NotificationContextProvider>
         <Routes>
-          <Route path="app/" element={<AppLayout />}>
-            <Route index element={<Home />} />
-            <Route path="filmes" element={<PageMovies />} />
-            <Route path="player" element={<PagePlayer />} />
-          </Route>
+          <Route path="/" element={<Login />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="sign-up" element={<SignUp />} />
         </Routes>
-      </AuthProvider> 
+        <AuthProvider>
+          <Routes>
+            <Route path="app/" element={<AppLayout />}>
+              <Route index element={<Home />} />
+              <Route path="filmes" element={<PageMovies />} />
+              <Route path="player/:movieId" element={<PagePlayer />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </NotificationContextProvider>
     </BrowserRouter>
   );
 }

@@ -62,7 +62,7 @@ export default function CardMovieModelTwo({
       onMouseLeave={handleMouseLeave}
     >
       <div className="CardMovieModeltwo-movie">
-        <Link to="/app/player">
+        <Link to={`/app/player/${movie.id}`}>
           {showTrailer ? (
             <div className="zoom">
               <iframe

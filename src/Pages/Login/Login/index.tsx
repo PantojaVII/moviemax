@@ -9,11 +9,17 @@ export default function Login() {
   const img = "/movies/02.jpg";
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
+
+
+
   useEffect(() => {
     const checkToken = async () => {
       if (token) {
         console.log("Token encontrado. Redirecionando para /app");
         navigate("/app");
+      }else{
+        console.log('Nada encontrado');
+        
       }
     };
 

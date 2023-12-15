@@ -1,9 +1,8 @@
 import { styled } from "styled-components";
 import { useState, useRef, useEffect } from "react";
 
-
 interface SectionOneSectionbuttonProps {
-  title: string;
+  title?: string;
   children: React.ReactNode;
   onScrollLeft?: () => void;
   onScrollRight?: () => void;
@@ -13,8 +12,8 @@ const SectionbuttonContainer = styled.div`
   display: flex;
   position: relative;
   max-width: 100%;
- margin-bottom: 0;
- `;
+  margin-bottom: 0;
+`;
 
 const SectionbuttonStyled = styled.div<{ containerWidth: number }>`
   display: flex;
@@ -22,8 +21,14 @@ const SectionbuttonStyled = styled.div<{ containerWidth: number }>`
   overflow-x: auto;
   max-width: ${(props) => props.containerWidth}px;
   margin-bottom: 0;
-  height: 390px;
-  `;
+
+  @media (max-width: 768px) {
+    height: auto;
+    h1 {
+      margin-left: 8px;
+    }
+  }
+`;
 
 const ContentSectionbuttonStyled = styled.div`
   display: flex;
@@ -35,22 +40,26 @@ const ContentSectionbuttonStyled = styled.div`
   padding-left: 80px;
   gap: 36px;
   position: relative;
- 
-  &::-webkit-scrollbar { 
-   display: none;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 25px;
   }
   &::-webkit-scrollbar-track {
-  
   }
   transition: 0.3s;
+  @media (max-width: 768px) {
+    padding: 0;
+    gap: 0px;
+    margin: 0;
+  }
 `;
 
 const ScrollButton = styled.button`
   position: absolute;
-  top: 50%; /* Adicionado para centralizar verticalmente */
+  top: 50%;
   width: 40px;
   height: 40px;
   background: var(--color-gray);
@@ -64,17 +73,17 @@ const ScrollButton = styled.button`
   margin: auto 24px;
   transition: 0.3s;
   font-weight: bold;
-  transform: translateY(-50%); /* Adicionado para centralizar verticalmente */
+  transform: translateY(-50%);
   &:hover {
     background-color: var(--primary);
   }
   @media (max-width: 789px) {
     display: none;
+    margin: auto 0;
   }
-  
 `;
 
-const SectionSlideMovies = ({
+const SectionSlide = ({
   title,
   children,
   onScrollLeft,
@@ -85,9 +94,19 @@ const SectionSlideMovies = ({
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
+    const updateContainerWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    updateContainerWidth();
+
+    window.addEventListener("resize", updateContainerWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateContainerWidth);
+    };
   }, []);
 
   const handleScrollLeft = () => {
@@ -104,7 +123,11 @@ const SectionSlideMovies = ({
     }
   };
 
-  function smoothScrollTo(element: HTMLElement, to: number, duration: number) {
+  function smoothScrollTo(
+    element: HTMLElement,
+    to: number,
+    duration: number
+  ) {
     const start = element.scrollLeft;
     const change = to - start;
     const increment = 10;
@@ -147,9 +170,11 @@ const SectionSlideMovies = ({
         <div className="Overlay"></div>
       </SectionbuttonStyled>
       <ScrollButton onClick={handleScrollLeft}>{"⇠"}</ScrollButton>
-      <ScrollButton style={{ right: 0 }} onClick={handleScrollRight}>{"⇢"}</ScrollButton>
+      <ScrollButton style={{ right: 0 }} onClick={handleScrollRight}>
+        {"⇢"}
+      </ScrollButton>
     </SectionbuttonContainer>
   );
 };
 
-export default SectionSlideMovies;
+export default SectionSlide;

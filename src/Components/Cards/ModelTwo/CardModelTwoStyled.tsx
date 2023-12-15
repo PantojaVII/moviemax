@@ -18,10 +18,11 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
     border-top-right-radius: 25px;
     transform: scale(1.3);
     cursor: pointer;
-
     transition: background-color 0.3s, transform 0.3s,  z-index 0.3s; 
     transition-delay: 0.5s;
 }
+
+ 
   .CardMovieModeltwo-movie {
     max-width: ${(props) => props.width};
    }
@@ -73,12 +74,45 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
       width: 250px;
     }
   }
+
   .synopsis {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 3;
 }
+@media (max-width: 1065px) {
+      min-width: auto;
+      max-width: 180px;
+      margin-left: 4px;
+      margin-right: 4px;
+      &:hover {
+      position: relative;
+      background-color: var(--background-black);
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      transform: scale(1);
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s,  z-index 0.3s; 
+      transition-delay: 0.5s;
+    }
+    img{
+      width: 180px;
+    }
+    .CardMovieModeltwo-info {
+  display: flex;
+  flex-direction: column; /* Adiciona esta linha para colocar os itens em coluna */
+}
+  .CardMovie-Title{
+    display: flex;
+    flex-wrap: wrap; /* Permite que o conteúdo quebre para a próxima linha se não couber */
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  }
 `;
 
 export default CardMovieModelTwoStyled;

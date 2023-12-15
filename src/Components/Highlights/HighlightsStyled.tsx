@@ -56,6 +56,7 @@ const HighlightsStyled = styled.div<HighlightsStyledProps>`
   @media (max-width: 768px) {
     width: auto;
     height: auto; /* Ajustei a altura automaticamente conforme o conteúdo */
+    margin-top: 24px;
   }
 `;
 

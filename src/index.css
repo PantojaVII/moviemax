@@ -191,7 +191,6 @@ span {
 
 /* Cards movies  */
 
-
 .CardMovie-Title {
   font-size: 18px;
   font-weight: bold;
@@ -223,13 +222,35 @@ span {
   border-width: 1px;
   border-color: var(--color-gray);
 }
+
 .CardMovie-Rating {
   display: flex;
   align-items: center;
   font-size: 16px;
   font-weight: 600;
 }
-
+@media (max-width: 768px) {
+  .CardMovie-age {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 0;
+    font-size: 10px;
+  }
+  .CardMovie-age span {
+    padding: 0 16px;
+    border-style: solid;
+    border-radius: 25px;
+    border-width: 1px;
+    border-color: var(--color-gray);
+  }
+  .CardMovie-Rating {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
 .CardMovie-Rating .icon {
   font-size: 18px;
   color: yellow;
@@ -250,5 +271,5 @@ span {
   background: linear-gradient(to right, transparent 0%, #0d0d0f 100%);
 }
 .custom-plyr-player .plyr {
-  border-radius: 50%;  
+  border-radius: 50%;
 }

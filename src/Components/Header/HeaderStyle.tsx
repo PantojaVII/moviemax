@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 const HeaderStyle = styled.header`
   display: flex;
- 
+  z-index: 100;
   .navbar-start {
     display: flex;
     flex: 0.5;
@@ -37,23 +37,28 @@ const HeaderStyle = styled.header`
     background-color: transparent;
     border-style: none;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     justify-content: space-between;
     position: fixed;
+    .navbar-mobile-menu {
+ 
+ flex: 1;
+ justify-content: center;
+}
     .navbar-start {
-    display: flex;
-    flex: 2;
-    justify-content: flex-end;
-    padding-right: 12px;
+ 
+    flex: 1;
+    justify-content: center;
    }
     .navbar-center {
       display: none;  
     }
     .navbar-end {
+       
     flex: 1;
-    padding-right: 6px;
-  }
- 
+    justify-content: end;
+    
+    }
   }
 `;
 

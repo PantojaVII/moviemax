@@ -2,7 +2,7 @@ import { InputTextContainer, Label, InputTextStyled } from "./InputTextStyles";
 
 interface InputTextProps {
   required?: boolean; 
-  label: string;
+  label?: string;
   value?: string;
   placeholder: string;
   type: string;

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {useEffect} from "react"
 
 export default function Login() {
-  const img = "/movies/02.jpg";
+  const img = "/cover01.png";
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
 

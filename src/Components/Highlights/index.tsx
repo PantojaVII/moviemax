@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import IMovies from "../../Interfaces/IMovies";
 import Button from "../Button";
 import HighlightsStyled from "./HighlightsStyled";
@@ -12,6 +13,7 @@ export default function Highlights({ movieHighlight }: HighlightsProps) {
   return (
     <>
       <HighlightsStyled $backgroundImg={movieHighlight.highlight}>
+
         <div className="HighLights-Content">
           <div className="HighLights-Button">
             <Button
@@ -28,11 +30,13 @@ export default function Highlights({ movieHighlight }: HighlightsProps) {
             ))}
           </div>
           <div className="HighLights-watch">
-            <Button
-              icon={<AiOutlinePlayCircle></AiOutlinePlayCircle>}
-              value="Assistir"
-              backgroundColor="var(--primary)"
-            ></Button>
+            <a href={`/app/player/${movieHighlight.info.includes('FILME') ? 'movie' : 'series'}/${movieHighlight.id}`}>
+              <Button
+                icon={<AiOutlinePlayCircle></AiOutlinePlayCircle>}
+                value="Assistir"
+                backgroundColor="var(--primary)"
+              ></Button>
+            </a>
           </div>
         </div>
       </HighlightsStyled>

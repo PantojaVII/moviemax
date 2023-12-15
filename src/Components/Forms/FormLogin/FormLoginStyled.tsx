@@ -16,9 +16,11 @@ const FormLoginStyled = styled.div`
     margin: 68px 0;
   }
   .login-social {
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     justify-content: baseline;
+    gap: 8px;
   }
   .highlight-large {
     margin-top: 24px;
@@ -46,12 +48,14 @@ const FormLoginStyled = styled.div`
 
   .section-ForgotPassword {
     text-align: right;
+    margin-bottom: 12px;
   }
   .ForgotPassword {
     font-weight: bold;
     font-size: 12px;
     color: var(--secondary);
     margin-right: 4px;
+
   }
   .section-sign-up {
     font-size: 14px;

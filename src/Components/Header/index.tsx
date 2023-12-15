@@ -3,8 +3,14 @@ import Button from "../Button";
 import HeaderStyle from "./HeaderStyle";
 import { BsSearch } from "react-icons/bs";
 import { useAuthContext } from "../../Context/auth/AuthContext";
+import { HamburgerIcon } from "../Sidebar/SidebarStyled";
+import { IoMdClose } from "react-icons/io";
+import { FiMenu } from "react-icons/fi";
+import { useState } from "react";
+import { useSidebarContext } from "./../../Context/menu/menuContext";
 
 export default function Header() {
+  const { isOpenMenu, toggleMenu } = useSidebarContext();
   const { user } = useAuthContext();
   let navigate = useNavigate();
 
@@ -21,8 +27,14 @@ export default function Header() {
     }
   };
 
+
   return (
     <HeaderStyle className="navbar bg-base-100">
+      <div className="navbar-mobile-menu">
+        <HamburgerIcon onClick={toggleMenu}>
+          {isOpenMenu ? <IoMdClose size={20} /> : <FiMenu size={20} />}
+        </HamburgerIcon>
+      </div>
       <div className="navbar-start">
         <h1 className="h1 logo">
           <Link to="/app/">MOVIEMAX</Link>
@@ -43,11 +55,11 @@ export default function Header() {
             Gêneros
           </Link>
         </div>
- 
+
       </div>
       <div className="navbar-end">
         <div className="navbar-search">
-          <BsSearch />
+          <Link to={"search"}> <BsSearch /></Link>
         </div>
         <details className="dropdown">
           <summary className="m-1 btn">

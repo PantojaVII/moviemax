@@ -5,10 +5,10 @@ interface SidebarProps {
 }
 
 export const SidebarStyled = styled.div<SidebarProps>`
+  
   padding-left: 32px;
   transition: width 0.3s ease, opacity 0.3s ease; /* Adicionando transição para opacity */
   width: '240px';
-  
   display: flex;
   flex-direction: column;
   padding-top: 64px;
@@ -48,21 +48,20 @@ export const SidebarStyled = styled.div<SidebarProps>`
   }
 
   @media (max-width: 900px) {
-    position: fixed;
-    padding-left: 32px;
-    transition: width 0.3s ease, opacity 0.3s ease;  
-    width: ${({ isOpen }) => (isOpen ? "250px" : "0")};
-    opacity: ${({ isOpen }) => (isOpen ? "1" : "0")}; 
-    padding-top: 64px;
-    background-color: var(--background-Buttons);
-    color: var(--color-gray);
-    height: 100%;
-    z-index: 3;
-  }
+  position: fixed;
+  padding-left: 32px;
+  transition: width 0.3s ease, opacity 0.3s ease;  
+  width: ${({ isOpen }) => (isOpen ? "250px" : "0")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")}; 
+  padding-top: 64px;
+  background-color: var(--background-Buttons);
+  color: var(--color-gray);
+  height: 100%;
+  z-index: 3;
 
-  .menu-toggle {
-    display: block;
-  }
+  /* Adicione esta linha para desativar a interação com os botões quando o menu está fechado */
+  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
+} 
 `;
 
 export const HamburgerIcon = styled.div`

@@ -4,6 +4,7 @@ interface IMovies {
   info: string[]; // Array de IDs dos gêneros
   name: string;
   age_groups: string;
+  rating: string;
   synopsis: string;
   duration: string;
   coverOne: string;

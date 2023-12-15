@@ -2,13 +2,15 @@ import { styled } from "styled-components";
 
 interface ButtonStyledProps {
   $backgroundColor?: string;
+  $width?: string;
+  $height?: string;
 }
 
 const ButtonStyle = styled.button<ButtonStyledProps>`
   background-color: ${(props) => props.$backgroundColor || 'var(--primary)'};
-  margin-top: 24px;
   border-radius: 25px;
-  height: 45px;
+  height: ${(props) => props.$height || '45px'};
+  width: ${(props) => props.$width || '100%'};;
 
   i {
     font-size: 24px;

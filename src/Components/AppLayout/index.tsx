@@ -11,7 +11,6 @@ function AppLayout({ }) {
   return (
     <AppLayoutStyled>
       <Header />
-      
       {/* conteudo */}
       <Content>
         <Sidebar />

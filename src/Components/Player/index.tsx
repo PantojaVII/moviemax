@@ -6,12 +6,13 @@ import { FaPlay } from "react-icons/fa";
 import { ContainerPlayerStyled, PlayerStyledShadow, PosterStyled, StartStyled } from "./PlayerStyled";
 /* https://github.com/sampotts/plyr#the-source-setter */
 interface MoviePlayerProps {
+  urlPlayer: string
   size?: number;
   poster: string;
 }
 
-export default function MoviePlayer({ poster, size }: MoviePlayerProps) {
-  const caminho = "http://192.168.0.113:8000/movies/1/stream";
+export default function MoviePlayer({ poster, size, urlPlayer }: MoviePlayerProps) {
+  const caminho = urlPlayer;
   const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const ref = useRef<APITypes>(null);
   const [movie, setMovie] = useState<boolean>(false);
@@ -83,37 +84,35 @@ export default function MoviePlayer({ poster, size }: MoviePlayerProps) {
     } else {
 
       let start = 0;
-      let end = 5000000;
- 
-        // Aguarde a conclusão da função assíncrona antes de prosseguir
-        await fetchVideoByRange(start, end);
-        // Verifique se o estado foi atualizado corretamente
-        setVideoBlob(response => {
-          if (response) {
-            const plyr = ref.current?.plyr;
-            if (!movie && plyr !== undefined) {
-              console.log(plyr.playing);
-              // Inicie o vídeo apenas se não estiver em execução
+      let end = 10000;
 
-            }
-          } else {
-            console.log('Não entrei');
+      // Aguarde a conclusão da função assíncrona antes de prosseguir
+      await fetchVideoByRange(start, end);
+      // Verifique se o estado foi atualizado corretamente
+      setVideoBlob(response => {
+        if (response) {
+          const plyr = ref.current?.plyr;
+          if (!movie && plyr !== undefined) {
+            console.log(plyr.playing);
+            // Inicie o vídeo apenas se não estiver em execução
+
           }
+        } else {
+          console.log('Não entrei');
+        }
 
-          return response; // Mantenha o valor original
-        });
-      
+        return response; // Mantenha o valor original
+      });
+
     }
   };
 
   const fetchVideoByRange: (start: number, end: number) => Promise<void> = async (start, end) => {
-    
+ 
     try {
-            
+
       const response = await http.get(caminho, {
-        headers: {
-          Range: `bytes=${start}-${end}`
-        },
+ 
         responseType: 'blob',
       });
 
@@ -130,7 +129,7 @@ export default function MoviePlayer({ poster, size }: MoviePlayerProps) {
 
 
 
-  const plyrVideo = caminho ? (
+  const plyrVideo = `http://192.168.0.113:8000/${caminho}` ? (
     <Plyr
       ref={ref}
       options={videoOptions}
@@ -139,7 +138,7 @@ export default function MoviePlayer({ poster, size }: MoviePlayerProps) {
         type: "video",
         sources: [
           {
-            src: caminho,
+            src: `http://192.168.0.113:8000/${caminho}`,
           }
         ]
       }}

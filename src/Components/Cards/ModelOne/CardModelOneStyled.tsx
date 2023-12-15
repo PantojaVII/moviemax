@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 interface CardMovieModelOneStyledProps {
   $backgroundImg?: string;
+
 }
 
 const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
@@ -11,7 +12,13 @@ const CardMovieModelOneStyled = styled.div<CardMovieModelOneStyledProps>`
   transition: transform 0.3s;
   border-radius: 25px;
   padding-right: 50px;
- 
+a{
+  display: flex;
+  gap: 4px;
+}
+  @media (max-width: 768px) {
+    transform: scale(0.8); /* ou qualquer valor desejado para a escala em dispositivos móveis */
+  }
   &:hover {
   position: relative;
   transform: scale(1.2);

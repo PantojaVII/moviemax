@@ -76,8 +76,8 @@ export default function FormSignUp() {
           <form onSubmit={handleSubmit}>
             <InputText
               type="text"
-              label="Nome"
-              placeholder="Digite seu Nome"
+              label="Seu primeiro nome"
+              placeholder="Escolha um username"
               value={name}
               required={true}
               onChange={(e) => setName(e.target.value)}

@@ -4,6 +4,7 @@ import InputText from "../../InputText";
 import SignUpStyled from "./SignUpStyled";
 import { useState } from "react";
 import http from "../../../http";
+import { useNotification } from "../../../Context/notifications/NotificationContext";
 
 export default function FormSignUp() {
   const [name, setName] = useState("");
@@ -12,13 +13,15 @@ export default function FormSignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [errors, setErrors] = useState<string[]>([]); // Estado para armazenar a mensagem de erro
+  const { showToast, dismissToast, openLoad } = useNotification();
 
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    showToast('Carregando');
     const user = {
-      username: name,
+      first_name: name,
       email: email,
       password: password,
       password_confirmation: confirmPassword,
@@ -76,7 +79,7 @@ export default function FormSignUp() {
           <form onSubmit={handleSubmit}>
             <InputText
               type="text"
-              label="Seu primeiro nome"
+              label="Nome"
               placeholder="Escolha um username"
               value={name}
               required={true}

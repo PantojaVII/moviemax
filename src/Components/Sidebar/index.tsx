@@ -26,13 +26,13 @@ export default function Sidebar() {
         <Link to={"filmes/"}>
           <div className="links hover ">
             <GiStarShuriken className="text-menu iconMenu"></GiStarShuriken>
-            <span onClick={toggleMenu} className="text-menu">Melhores filmes</span>
+            <span onClick={toggleMenu} className="text-menu">Filmes</span>
           </div>
         </Link>
-        <Link to={"filmes/"}>
+        <Link to={"Series/"}>
           <div className="links hover ">
             <BsFillBrightnessHighFill className="text-menu iconMenu"></BsFillBrightnessHighFill>
-            <span onClick={toggleMenu} className="text-menu">Destaques</span>
+            <span onClick={toggleMenu} className="text-menu">Séries</span>
           </div>
         </Link>
         <span className="titleSections mb-12">Biblioteca</span>

@@ -28,18 +28,6 @@ h1{
    }
  }
 }
-
-.search-result {
- 
-    display: flex;
-
-    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-    @media (max-width: 600px) {
-     overflow-x: hidden;
-      
-  }
-}
-
 `;
 
 export const ButtonSearch = styled.button`

@@ -4,6 +4,7 @@ interface ButtonStyledProps {
   $backgroundColor?: string;
   $width?: string;
   $height?: string;
+  $fontSize?: string;
 }
 
 const ButtonStyle = styled.button<ButtonStyledProps>`
@@ -13,7 +14,7 @@ const ButtonStyle = styled.button<ButtonStyledProps>`
   width: ${(props) => props.$width || '100%'};;
 
   i {
-    font-size: 24px;
+    font-size: ${(props) => props.$fontSize || '24px'};;
   }
 
   .text-button {

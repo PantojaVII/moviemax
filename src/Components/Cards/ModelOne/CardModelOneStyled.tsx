@@ -77,11 +77,7 @@ a{
     margin-top: 4px;
     
   }
-  .CardMovieModelOne-Gender .genrer :hover{
-    transition: 0.3s;
-    color: var(--secondary);
-    
-  }
+ 
 
   .CardMovieModelOne-age {
     display: flex;

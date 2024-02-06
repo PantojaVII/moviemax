@@ -27,7 +27,7 @@ export default function Search({ }: SearchProps) {
     const fetchData = () => {
         http.get(`search/?q=${search}`)  // Adiciona a query de busca ao URL
             .then(returnMovies => {
-                setResults(returnMovies.data);
+                setResults(returnMovies.data.results);
             })
             .catch(erro => {
                 console.log(erro);

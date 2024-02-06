@@ -8,6 +8,8 @@ interface Props {
 
 export const ModelThreeStyled = styled.div<Props>` 
 display: flex;
+margin-left: 12px;
+margin-right: 12px;
 align-items: center;
 justify-content: center;
 width: ${(props) => props.$width || '180px'};

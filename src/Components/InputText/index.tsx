@@ -6,6 +6,7 @@ interface InputTextProps {
   value?: string;
   placeholder: string;
   type: string;
+  disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,6 +16,7 @@ export default function InputText({
   value,
   placeholder,
   type,
+  disabled = false,
   onChange,
 }: InputTextProps) {
   return (
@@ -26,6 +28,7 @@ export default function InputText({
         value={value}
         required={required}  
         onChange={onChange}
+        disabled={disabled}
       />
     </InputTextContainer>
   );

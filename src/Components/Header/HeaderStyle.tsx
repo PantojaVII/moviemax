@@ -24,12 +24,21 @@ const HeaderStyle = styled.header`
   }  
 
   .navbar-search {
-    margin-right: 12px;
+    margin-right: 24px;
     font-size: 24px;
   }
 
   .avatar {
     width: 24px;
+    margin-right: 16px;
+  }
+  .options{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    font-size: 12px;
+    font-weight: 700;
   }
   
   /* Para o avatar */
@@ -60,6 +69,7 @@ const HeaderStyle = styled.header`
     
     }
   }
+ 
 `;
 
 export default HeaderStyle;

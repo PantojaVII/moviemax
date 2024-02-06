@@ -8,6 +8,8 @@ import { IoMdClose } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import { useSidebarContext } from "./../../Context/menu/menuContext";
+import { IoSettingsOutline } from "react-icons/io5";
+
 
 export default function Header() {
   const { isOpenMenu, toggleMenu } = useSidebarContext();
@@ -61,20 +63,27 @@ export default function Header() {
         <div className="navbar-search">
           <Link to={"search"}> <BsSearch /></Link>
         </div>
-        <details className="dropdown">
-          <summary className="m-1 btn">
-            <div className="avatar">
-              <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://github.com/pantojavii.png" alt="Avatar do Usuário" />
+        <div className="dropdown dropdown-bottom dropdown-end">
+          <div tabIndex={0} role="button" className="btn avatar">
+            <summary className="btn">
+              <div className="avatar">
+                <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src="https://github.com/pantojavii.png" alt="Avatar do Usuário" />
+                </div>
               </div>
-            </div>
-          </summary>
-          <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 right-0 left-auto">
-            <li>
-              <a onClick={() => onLogout()}>Sair</a>
+            </summary>
+          </div>
+          <ul className="p-2  shadow menu dropdown-content z-[1] bg-secondary rounded-box w-52 right-0 left-auto">
+            <li className="options">
+              <Link to="profile/" >
+                <IoSettingsOutline /> Configurações
+              </Link>
+            </li>
+            <li className="options">
+              <a href="#" onClick={() => onLogout()}> <IoSettingsOutline /> Sair</a>
             </li>
           </ul>
-        </details>
+        </div>
 
       </div>
     </HeaderStyle>

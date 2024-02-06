@@ -6,6 +6,7 @@ interface ConteinerProps {
 
 const ContainerStyled = styled.section`
   display: flex;
+  
   padding: 0 24px 0 12px;
   gap: 16px;
   margin-top: 50px;

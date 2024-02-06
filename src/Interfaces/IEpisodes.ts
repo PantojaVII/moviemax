@@ -1,5 +1,5 @@
 interface IEpisodes {
-    id: number;
+    id: string;
     num_episode : number;
     name: string;
     duration: string;

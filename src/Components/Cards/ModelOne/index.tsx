@@ -74,18 +74,16 @@ export default function CardModelOne({
         </div>
         <div className="CardMovieModelOne-Info">
           <div className="CardMovieModelOne-Title">{content?.name}</div>
-          <Link to={"filmes/"}>
-            <div className="CardMovieModelOne-Gender">
-              <div className="genrer">
-                {content?.genres.map((genre, index) => (
-                  <div className="inter-genre" key={index}>
-                    <MdLocalMovies className="icon"></MdLocalMovies>
-                    <a>{genre}</a>
-                  </div>
-                ))}
-              </div>
+          <div className="CardMovieModelOne-Gender">
+            <div className="genrer">
+              {content?.genres.map((genre, index) => (
+                <div className="inter-genre" key={index}>
+                  <MdLocalMovies className="icon"></MdLocalMovies>
+                  <a>{genre}</a>
+                </div>
+              ))}
             </div>
-          </Link>
+          </div>
           <div className="CardMovieModelOne-age">
             <span>{content?.age_groups}</span>
           </div>

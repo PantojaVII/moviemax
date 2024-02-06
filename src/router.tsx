@@ -11,6 +11,8 @@ import AuthProvider from "./Context/auth/AuthProvider";
 import { NotificationContextProvider } from "./Context/notifications/NotificationContext";
 import { SidebarProvider } from "./Context/menu/menuContext";
 import Search from "./Pages/App/Search";
+import Profile from "./Pages/App/Profile";
+import PageSeries from "./Pages/App/Series";
 function Router() {
   return (
     <BrowserRouter>
@@ -25,9 +27,11 @@ function Router() {
             <Routes>
               <Route path="app/" element={<AppLayout />}>
                 <Route index element={<Home />} />
-                <Route path="filmes" element={<PageMovies />} />
+                <Route path="filmes/:genreURL?" element={<PageMovies />} />
+                <Route path="Series/:genreURL?" element={<PageSeries />} />
                 <Route path="player/:type/:id" element={<PagePlayer />} />
                 <Route path="search" element={<Search />} />
+                <Route path="profile" element={<Profile />} />
               </Route>
             </Routes>
           </SidebarProvider>

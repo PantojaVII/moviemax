@@ -21,6 +21,7 @@ import IEpisodes from "../../../Interfaces/IEpisodes";
 import ISeason from "../../../Interfaces/ISeason";
 import CardModelThree from "../../../Components/Cards/ModelThree";
 import CardModelFour from "../../../Components/Cards/ModelFour";
+import SeasonsAndEpisodes from "../../../Components/SeasonsAndEpisodes";
 
 
 
@@ -35,19 +36,22 @@ export default function PagePlayer({ }: PlayerProps) {
 
   //em caso de série
   const [serie, setSerie] = useState<ISeries | null>(null);
-  const [seasons, setSeasons] = useState<ISeason[] | null>(null)//pega as temporadas
+  const [seasons, setSeasons] = useState<ISeason[]>([])//pega as temporadas
   const [season, setSeason] = useState<ISeason | null>(null)//Temporada selecionada
   const [episodes, setEpisodes] = useState<IEpisodes[] | null>(null);//Pega os episodios da temporada selecionada
   const [episode, setEpisode] = useState<IEpisodes | null>(null)//episódio selecionado
   const [player, setPlayer] = useState<String>("") // url do player
+  const [viewEpisodes, setViewEpisodes] = useState<IEpisodes[] | null>(null);
+  const [seasonSelected, setSeasonSelected] = useState<string | number>("");
+
 
   useEffect(() => {
     // Dependências movie e serie adicionadas
     if (type == "movie") {
-      http.get(`Movies/${id}/`) // pega o filme
+      http.get(`Movies/?movie=${id}`) // pega o filme
         .then(returnMovie => {
-          setMovie(returnMovie.data);
-          setPlayer('movies/stream/' + returnMovie.data.id)
+          setMovie(returnMovie.data.results[0]);
+          setPlayer('movies/stream/' + returnMovie.data.results[0].id)
         })
         .catch(erro => {
 
@@ -55,35 +59,33 @@ export default function PagePlayer({ }: PlayerProps) {
 
       http.get('Movies/')
         .then(returnRecent => {
-          setRecent(returnRecent.data);
+          setRecent(returnRecent.data.results);
         })
         .catch(erro => {
           console.log(erro);
         });
 
     } else if (type == "serie") {
-      http.get(`Series/${id}/`) // pega o filme
+      http.get(`Series/?serie=${id}`) // pega o filme
         .then(returnSerie => {
-          setSerie(returnSerie.data);
-          setSeasons(returnSerie.data.season_set);
-          setSeason(returnSerie.data.season_set[0])
-          setEpisodes(returnSerie.data.season_set[0].episodes)
-          setEpisode(returnSerie.data.season_set[0].episodes[0])
-          setPlayer('episode/stream/' + returnSerie.data.season_set[0].episodes[0].id)
+          setSerie(returnSerie.data.results[0]);
+          setSeasons(returnSerie.data.results[0].season_set);
+          setSeason(returnSerie.data.results[0].season_set[0]);
+          setEpisodes(returnSerie.data.results[0].season_set[0].episodes);
+          setViewEpisodes(returnSerie.data.results[0].season_set[0].episodes)
+          setEpisode(returnSerie.data.results[0].season_set[0].episodes[0]);
+          setPlayer('episode/stream/' + returnSerie.data.results[0].season_set[0].episodes[0].id);
+          setSeasonSelected(1)
         })
         .catch(erro => {
-
         });
 
-
     }
-  }, []);
-  const selectSeason = (seasonSelected: ISeason) => {
-    setSeason(seasonSelected)
-    setEpisodes(seasonSelected.episodes)
-
+  }, [type, id]);
+  const selectEpisode = (episode: IEpisodes) => {
+    setEpisode(episode);
+    setPlayer('episode/stream/' + episode.id);
   }
-
   return (
     <ContainerMaster>
       <Container>
@@ -149,29 +151,9 @@ export default function PagePlayer({ }: PlayerProps) {
               {/* Sessão das temporadas e episódeos */}
 
               <Season>
-                <SectionSlide>
-                  {seasons?.map((seasonMap) => (
-                    <CardModelThree
-                      onClick={() => selectSeason(seasonMap)}
-                      key={seasonMap.id}
-                      title={`Temporada ${seasonMap.season}`}
-                      backgroundColor={seasonMap === season ? "var(--secondary)" : undefined}
-                    />
-                  ))}
-                </SectionSlide>
+                <SeasonsAndEpisodes seasons={seasons} cover={serie?.coverOne} selectEpisode={selectEpisode} >
 
-                {/* Episódios da temporada escolhida */}
-                {episodes && episodes.length > 0 ? (
-                  <SectionSlide>
-                    {episodes?.map((EpisodeMap) => (
-                      <Link to={"app/"}>
-                        <CardModelFour key={EpisodeMap.id} episode={EpisodeMap} img={serie?.coverOne} />
-                      </Link>
-                    ))}
-                  </SectionSlide>
-                ) : (
-                  <p>Não há episódios disponíveis.</p>
-                )}
+                </SeasonsAndEpisodes>
               </Season>
 
               {/* Info */}
@@ -214,7 +196,6 @@ export default function PagePlayer({ }: PlayerProps) {
             </SectionOneSectionTopStyled>
           }
 
-
         </SectionOneStyled>
         <SectionTwoStyled title={"Recomendados"}>
           {recent.slice(0, 3).map((movie) => (
@@ -223,7 +204,7 @@ export default function PagePlayer({ }: PlayerProps) {
         </SectionTwoStyled>
       </Container>
       <Container>
-        <SectionOneStyled>
+        {/*         <SectionOneStyled>
           <SectionSlide title="Filmes">
             {recent.map((movie) => (
               <CardMovieModelTwo key={movie.id} movie={movie} />
@@ -257,7 +238,7 @@ export default function PagePlayer({ }: PlayerProps) {
               <CardMovieModelTwo key={movie.id} movie={movie} />
             ))}
           </SectionSlide>
-        </SectionOneStyled>
+        </SectionOneStyled> */}
       </Container>
     </ContainerMaster>
 

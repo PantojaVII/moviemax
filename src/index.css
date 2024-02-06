@@ -85,7 +85,7 @@ code {
 /* Classe para H1 */
 .h1 {
   font-family: var(--font-h1);
-  font-weight: var(--font-weight-h1);
+  font-weight: var(--font-weight-highlight);
   font-size: var(--font-size-h1);
 }
 
@@ -129,6 +129,7 @@ code {
   font-weight: var(--font-weight-h3);
   font-size: var(--font-size-h3);
 }
+ 
 
 /* Classe para Legendas e Detalhes */
 .legend {
@@ -272,4 +273,16 @@ span {
 }
 .custom-plyr-player .plyr {
   border-radius: 50%;
+}
+.search-result {
+  margin-top: 24px;
+  display: flex;
+
+  flex-wrap: wrap;
+}
+/* Permite que os itens quebrem para a próxima linha */
+@media (max-width: 600px) {
+  .search-result {
+    overflow-x: hidden;
+  }
 }

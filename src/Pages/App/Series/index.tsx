@@ -1,58 +1,60 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Container from "../../../Components/Container";
 import SectionOneStyled from "../../../Components/SectionOne";
+import SectionTwoStyled from "../../../Components/SectionTwoStyled";
+import Highlights from "../../../Components/Highlights";
 import CardMovieModelOne from "../../../Components/Cards/ModelOne";
 import CardMovieModelTwo from "../../../Components/Cards/ModelTwo";
 import { styled } from "styled-components";
 import SectionSlide from "../../../Components/SectionSlide";
 import Ranking from "../../../Components/Rank";
 import { useEffect, useState } from "react";
-import IMovies from "../../../Interfaces/IMovies";
 import http from "../../../http";
 import ContainerMaster from "../../../Components/Container/ContainerMaster";
 import CardModelThree from "../../../Components/Cards/ModelThree";
 import IGenres from "../../../Interfaces/IGenre";
 import ContainerModelOne from '../../../Components/Container/ContainerModelOne';
+import ISeries from '../../../Interfaces/ISeries';
 import MoreContent from '../../../Components/MoreResults';
 
 
 const SectionOneSectionTopStyled = styled.div``;
 
-interface PageMoviesProps { }
-export default function PageMovies({ }: PageMoviesProps) {
-  const [moviesByGenre, setMoviesByGenre] = useState<IMovies[]>([]);
-  const [recentsmovies, setRecentsMovies] = useState<IMovies[]>([]);
-  const [bestmovies, setBestMovies] = useState<IMovies[]>([]);
-  const [actionMovies, setActionMovies] = useState<IMovies[]>([]);
-  const [adventureMovies, setAdventureMovies] = useState<IMovies[]>([]);
+interface PageSeriesProps { }
+export default function PageSeries({ }: PageSeriesProps) {
+  const [seriesByGenre, setSeriesByGenre] = useState<ISeries[]>([]);
+  const [recentsSeries, setRecentsSeries] = useState<ISeries[]>([]);
+  const [bestSeries, setBestSeries] = useState<ISeries[]>([]);
+  const [actionSeries, setActionSeries] = useState<ISeries[]>([]);
+  const [adventureSeries, setAdventureSeries] = useState<ISeries[]>([]);
   const [genres, setGenres] = useState<IGenres[]>([]);
   const [genre, setGenre] = useState<IGenres>();
-  const [moreMovies, setMoreMovies] = useState<string | null>("");
+  const [moreSeries, setMoreSeries] = useState<string | null>("");
   const { genreURL } = useParams();
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
 
-        /* Searching movies */
-        const recentsmoviesResponse = await http.get('Movies/');
-        const bestmoviesResponse = await http.get('Movies/?search=&field=rating');
-        const actionmoviesResponse = await http.get('Movies/?search=4c3b73f1b58a023ed4b778449d40d492f873490b147046eca3162f15c93b6f18&content=genres');
-        const adventuremoviesResponse = await http.get('Movies/?search=642f6dfe13a7de8916a4230b7f3916b6490b0db48f058e531bca12a79c70605b&content=genres');
+        /* Searching Series */
+        const recentsSeriesResponse = await http.get('Series/');
+        const bestSeriesResponse = await http.get('Series/?search=&field=rating');
+        const actionmoviesResponse = await http.get('Series/?search=4c3b73f1b58a023ed4b778449d40d492f873490b147046eca3162f15c93b6f18&content=genres');
+        const adventureSeriesResponse = await http.get('Series/?search=642f6dfe13a7de8916a4230b7f3916b6490b0db48f058e531bca12a79c70605b&content=genres');
         const genresResponse = await http.get('Genres/');
 
         /* movies */
-        setRecentsMovies(recentsmoviesResponse.data.results);
-        setBestMovies(bestmoviesResponse.data.results);
-        setActionMovies(actionmoviesResponse.data.results);
-        setAdventureMovies(adventuremoviesResponse.data.results);
+        setRecentsSeries(recentsSeriesResponse.data.results);
+        setBestSeries(bestSeriesResponse.data.results);
+        setActionSeries(actionmoviesResponse.data.results);
+        setAdventureSeries(adventureSeriesResponse.data.results);
         setGenres(genresResponse.data);
 
         if (genreURL) {
           const genreResponse = await http.get(`Genres/Name/?name=${genreURL}`);
-          const moviesByGenreResponse = await http.get(`Movies/?search=${genreURL}&field=genre`);
+          const moviesByGenreResponse = await http.get(`Series/?search=${genreURL}&field=genre`);
           setGenre(genreResponse.data.results)
-          setMoviesByGenre(moviesByGenreResponse.data.results)
+          setSeriesByGenre(moviesByGenreResponse.data.results)
 
         }
 
@@ -69,23 +71,25 @@ export default function PageMovies({ }: PageMoviesProps) {
     fetchMovies();
   }, []);
 
-  // Chama a função de busca de filmes por gênero
   const selectGenre = (selectedGenre: IGenres) => {
     fetchMoviesByGenre(selectedGenre);
   };
 
   const fetchMoviesByGenre = async (selectedGenre: IGenres) => {
     try {
-      const moviesByGenreResponse = await http.get(`Movies/?search=${selectedGenre.hashed_id}&content=genres`);
+      console.log(selectedGenre);
+      // Realiza a busca de filmes por gênero
+      const seriesByGenreResponse = await http.get(`Series/?search=${selectedGenre.hashed_id}&content=genres`);
+
       // Atualiza o estado do gênero e dos filmes por gênero
       setGenre(selectedGenre);
-      setMoviesByGenre(moviesByGenreResponse.data.results);
-      setMoreMovies(moviesByGenreResponse.data.next)
+      setSeriesByGenre(seriesByGenreResponse.data.results);
+      setMoreSeries(seriesByGenreResponse.data.next)
     } catch (error) {
       if (error instanceof Error) {
-        console.error('Erro na busca de filmes por gênero:', error.message);
+        console.error('Erro na busca de Series por gênero:', error.message);
       } else {
-        console.error('Erro desconhecido na busca de filmes por gênero:', error);
+        console.error('Erro desconhecido na busca de Series por gênero:', error);
       }
       // Trate o erro de acordo com os requisitos do seu aplicativo
     }
@@ -94,7 +98,6 @@ export default function PageMovies({ }: PageMoviesProps) {
   return (
     <ContainerMaster>
       <Container>
-        {/* Sem seleção de gênero */}
         {(!genre) ? (
           <SectionOneStyled>
             {/* Genres */}
@@ -112,38 +115,39 @@ export default function PageMovies({ }: PageMoviesProps) {
             </ContainerModelOne>
 
             {/* Top Movies */}
-            <SectionSlide title="Top Filmes">
-              {bestmovies.map((movie, index) => (
+            <SectionSlide title="Top Séries">
+              {bestSeries.map((serie, index) => (
                 <Ranking title={index + 1} key={index}>
-                  <CardMovieModelOne movie={movie}></CardMovieModelOne>
+                  <CardMovieModelOne serie={serie}></CardMovieModelOne>
                 </Ranking>
               ))}
             </SectionSlide>
 
             {/* Recents */}
             <SectionSlide title="Adicionados recentes">
-              {recentsmovies.map((movie, index) => (
-                <CardMovieModelTwo movie={movie}></CardMovieModelTwo>
+              {recentsSeries.map((serie, index) => (
+                <CardMovieModelTwo serie={serie}></CardMovieModelTwo>
               ))}
             </SectionSlide>
 
             {/* Action */}
             <SectionSlide title="Ação">
-              {actionMovies.map((movie, index) => (
-                <CardMovieModelTwo movie={movie}></CardMovieModelTwo>
+              {actionSeries.map((serie, index) => (
+                <CardMovieModelTwo serie={serie}></CardMovieModelTwo>
               ))}
             </SectionSlide>
 
             {/* Adventure */}
             <SectionSlide title="Aventura">
-              {adventureMovies.map((movie, index) => (
-                <CardMovieModelTwo movie={movie}></CardMovieModelTwo>
+              {adventureSeries.map((serie, index) => (
+                <CardMovieModelTwo serie={serie}></CardMovieModelTwo>
               ))}
             </SectionSlide>
 
           </SectionOneStyled>
         ) : (
           <SectionOneStyled>
+
             {/* Genres */}
             <SectionSlide>
               {genres?.map((genreMap) => (
@@ -158,12 +162,11 @@ export default function PageMovies({ }: PageMoviesProps) {
 
             {/* Resultado de buscas por gênero */}
             <MoreContent
-              Content={moviesByGenre}
+              Content={seriesByGenre}
               Genre={genre}
-              ContentType='movie'
-              MoreContent={moreMovies}
+              ContentType='serie'
+              MoreContent={moreSeries}
             ></MoreContent>
-
           </SectionOneStyled>
         )}
       </Container>

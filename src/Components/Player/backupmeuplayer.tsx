@@ -184,3 +184,162 @@ const formatTime = (time: number): string => {
     }
   };
  */
+
+
+
+
+
+  /* 
+  model plyr 
+
+import { useEffect, useState, useRef } from "react";
+import Plyr, { APITypes } from "plyr-react";
+import "plyr-react/plyr.css";
+import http from '../../http';
+import { FaPlay } from "react-icons/fa";
+import { ContainerPlayerStyled, PlayerStyledShadow, PosterStyled, StartStyled } from "./PlayerStyled";
+/* https://github.com/sampotts/plyr#the-source-setter */
+/* interface MoviePlayerProps {
+  urlPlayer: string
+  size?: number;
+  poster: string;
+}
+
+export default function MoviePlayer({ poster, size, urlPlayer }: MoviePlayerProps) {
+  const caminho = urlPlayer;
+  const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
+  const ref = useRef<APITypes>(null);
+  const [movie, setMovie] = useState<boolean>(false);
+
+
+
+
+  // Função a ser chamada quando o botão de iniciar é clicado
+  const handlePlayButtonClick = async (clickTime: number, duration: number) => {
+
+    if (size !== undefined && duration != 0) {
+      const byte = (clickTime * size) / duration;
+      let intervalo = (120 * size) / duration;
+      let start = byte - intervalo;
+      let end = byte + intervalo;
+
+      if (start < 0) {
+        start = 0;
+      }
+      if (end >= size) {
+        end = size - 1;
+      }
+      try {
+        // Aguarde a conclusão da função assíncrona antes de prosseguir
+        await fetchVideoByRange(start, end);
+
+        // Verifique se o estado foi atualizado corretamente
+        setVideoBlob(response => {
+          if (response) {
+            const plyr = ref.current?.plyr;
+            if (!movie && plyr !== undefined) {
+              console.log(plyr.playing);
+              // Inicie o vídeo apenas se não estiver em execução
+
+            }
+          } else {
+            console.log('Não entrei');
+          }
+
+          return response; // Mantenha o valor original
+        });
+      } catch (error) {
+        console.error('Erro ao buscar vídeo:', error);
+      }
+    } else {
+
+      let start = 0;
+      let end = 1500000;
+
+      // Aguarde a conclusão da função assíncrona antes de prosseguir
+      await fetchVideoByRange(start, end);
+
+    }
+  };
+
+  const fetchVideoByRange: (start: number, end: number) => Promise<void> = async (start, end) => {
+
+    try {
+
+      const response = await http.get(caminho, {
+        responseType: 'blob',
+        headers: { Range: `bytes=${start}-${end}` }
+      });
+
+      setVideoBlob(response.data);
+      setMovie(true);
+    } catch (erro) {
+      console.error('Erro ao buscar vídeo', erro);
+    }
+  };
+
+  const chamarFilme = () => {
+    handlePlayButtonClick(0, 0);
+  } */
+
+
+
+  /*   const videoOptions = {
+      controls: ['play', 'progress', 'duration', 'mute', 'volume', 'settings', 'fullscreen', "displayDuration",],
+      autoplay: false,
+      loop: { active: false },
+      volume: 0.7,
+      displayDuration: true,
+      listeners: {
+        timeupdate: () => {
+          const newPlayTime = ref.current?.plyr.currentTime;
+          setCurrentPlayTime(newPlayTime);
+        },
+      },
+    }; */
+
+  /* const plyrVideo = caminho && videoBlob ? ( //se caminho e videoblob forem true entra
+    <>
+      <Plyr
+        ref={ref}
+        poster={poster}
+        source={{
+          type: "video",
+          sources: [
+            {
+              src: URL.createObjectURL(videoBlob),
+            },
+          ],
+        }}
+      /> 
+      <p>Tempo atual {ref.current?.plyr.currentTime}</p>
+    </>
+
+  ) : null; */
+ 
+
+ 
+
+  // Renderiza o componente principal
+/*   return (
+    <ContainerPlayerStyled>
+      {!movie ? (
+        <PosterStyled>
+          <img src={poster} />
+          <PlayerStyledShadow></PlayerStyledShadow>
+          <StartStyled><FaPlay onClick={chamarFilme} /></StartStyled>
+        </PosterStyled>
+      ) : (
+        <>
+          {plyrVideo}
+
+        </>
+      )}
+    </ContainerPlayerStyled>
+  );
+} */
+
+  
+  
+  
+ 

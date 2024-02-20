@@ -102,6 +102,11 @@ export default function Home({ }: HomeProps) {
               <CardMovieModelTwo key={movie.id} movie={movie} />
             ))}
           </SectionSlide>
+          <SectionSlide title="Canais de TV">
+            {adventureMovies.map((movie) => (
+              <CardMovieModelTwo key={movie.id} movie={movie} />
+            ))}
+          </SectionSlide>
           <SectionSlide title="Filmes de Aventura">
             {adventureMovies.map((movie) => (
               <CardMovieModelTwo key={movie.id} movie={movie} />

@@ -39,19 +39,35 @@ export default function PagePlayer({ }: PlayerProps) {
   const [seasons, setSeasons] = useState<ISeason[]>([])//pega as temporadas
   const [season, setSeason] = useState<ISeason | null>(null)//Temporada selecionada
   const [episodes, setEpisodes] = useState<IEpisodes[] | null>(null);//Pega os episodios da temporada selecionada
-  const [episode, setEpisode] = useState<IEpisodes | null>(null)//episódio selecionado
+  const [episode, setEpisode] = useState<IEpisodes>()//episódio selecionado
   const [player, setPlayer] = useState<String>("") // url do player
   const [viewEpisodes, setViewEpisodes] = useState<IEpisodes[] | null>(null);
   const [seasonSelected, setSeasonSelected] = useState<string | number>("");
-
-
+  const [key, setKey] = useState<number>(0); // Chave única para forçar a recarga do player
+  
+  
+  
+  const baseUrl = "http://192.168.0.113:8000/"
+  const selectEpisode = (episode: IEpisodes) => {
+    setEpisode(episode);
+    if (episode.playerURL) {    
+      setPlayer(episode.playerURL);
+    } else {
+      setPlayer(`${episode.playerURL}`);
+    }
+    // Atualiza a chave única para forçar a recarga do player
+    setKey(prevKey => prevKey + 1);
+  };
+  useEffect(() => {
+    // Use a chave única como uma dependência para forçar a recarga do player
+  }, [key]);
   useEffect(() => {
     // Dependências movie e serie adicionadas
     if (type == "movie") {
       http.get(`Movies/?movie=${id}`) // pega o filme
         .then(returnMovie => {
           setMovie(returnMovie.data.results[0]);
-          setPlayer('movies/stream/' + returnMovie.data.results[0].id)
+          setPlayer(`${returnMovie.data.results[0].playerURL}`)
         })
         .catch(erro => {
 
@@ -74,7 +90,7 @@ export default function PagePlayer({ }: PlayerProps) {
           setEpisodes(returnSerie.data.results[0].season_set[0].episodes);
           setViewEpisodes(returnSerie.data.results[0].season_set[0].episodes)
           setEpisode(returnSerie.data.results[0].season_set[0].episodes[0]);
-          setPlayer('episode/stream/' + returnSerie.data.results[0].season_set[0].episodes[0].id);
+          setPlayer(`${baseUrl}episode/stream/${returnSerie.data.results[0].season_set[0].episodes[0].id}`);
           setSeasonSelected(1)
         })
         .catch(erro => {
@@ -82,10 +98,8 @@ export default function PagePlayer({ }: PlayerProps) {
 
     }
   }, [type, id]);
-  const selectEpisode = (episode: IEpisodes) => {
-    setEpisode(episode);
-    setPlayer('episode/stream/' + episode.id);
-  }
+
+
   return (
     <ContainerMaster>
       <Container>
@@ -144,15 +158,15 @@ export default function PagePlayer({ }: PlayerProps) {
             <SectionOneSectionTopStyled>
               {/* PLayer */}
               <MoviePlayer
-                urlPlayer={`${player}/`}
+                key={key}
+                urlPlayer={`${player}`}
                 poster={`${serie?.highlight}`}
                 size={episode?.file_size}
               />
               {/* Sessão das temporadas e episódeos */}
 
               <Season>
-                <SeasonsAndEpisodes seasons={seasons} cover={serie?.coverOne} selectEpisode={selectEpisode} >
-
+                <SeasonsAndEpisodes seasons={seasons} cover={serie?.coverOne} episodeSelected={episode} selectEpisode={selectEpisode} >
                 </SeasonsAndEpisodes>
               </Season>
 

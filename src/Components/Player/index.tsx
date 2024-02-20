@@ -10,7 +10,8 @@ import {
   CurrentTimeDisplay,
   TimeDivider,
   PlaybackRateMenuButton,
-  VolumeMenuButton
+  VolumeMenuButton,
+  PlayToggle
 
 } from 'video-react';
 import 'video-react/dist/video-react.css';
@@ -23,7 +24,8 @@ interface MoviePlayerProps {
 
 export default function MoviePlayer({ poster, size, urlPlayer }: MoviePlayerProps) {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
-  const urlVideo = "http://192.168.0.113:8000/" + urlPlayer;
+  /* const urlVideo = urlPlayer; */
+  const urlVideo = "https://coliseu.bitware.tec.br/m/1/player.mkv";
 
   const handleStartClick = () => {
     setVideoLoaded(true);
@@ -31,22 +33,19 @@ export default function MoviePlayer({ poster, size, urlPlayer }: MoviePlayerProp
 
   return (
     <ContainerPlayerStyled>
-      {videoLoaded ? (
-        <Player poster={poster}>
-          <source src={urlVideo} />
-          <BigPlayButton position="center" />
-          <ControlBar>
-            <ReplayControl seconds={5} />
-          </ControlBar>
-        </Player>
-      ) : (
-        <PosterStyled>
-          <img src={poster} alt="Movie Poster" />
-          <PlayerStyledShadow />
+      <Player poster={poster} autoPlay >
+        <source src={urlVideo} />
+        <BigPlayButton position="center" />
+        <ControlBar>
+          <PlayToggle />
+          <ReplayControl seconds={10} />
+          <ForwardControl seconds={10} />
+          <VolumeMenuButton vertical />
+          <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+          <CurrentTimeDisplay order={4.1} />
+        </ControlBar>
+      </Player>
 
-          <StartStyled onClick={handleStartClick}><FaPlay /></StartStyled>
-        </PosterStyled>
-      )}
     </ContainerPlayerStyled>
   );
 }

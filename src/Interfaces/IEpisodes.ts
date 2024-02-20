@@ -5,6 +5,7 @@ interface IEpisodes {
     duration: string;
     synopsis:  string;
     player:  string;
+    playerURL:  string;
     file_size: number;
   }
   export default IEpisodes

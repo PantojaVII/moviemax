@@ -25,7 +25,7 @@ interface MoviePlayerProps {
 export default function MoviePlayer({ poster, size, urlPlayer }: MoviePlayerProps) {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   /* const urlVideo = urlPlayer; */
-  const urlVideo = "https://coliseu.bitware.tec.br/m/1/player.mkv";
+  const urlVideo = urlPlayer;
 
   const handleStartClick = () => {
     setVideoLoaded(true);

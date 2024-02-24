@@ -50,10 +50,10 @@ export default function PagePlayer({ }: PlayerProps) {
   const baseUrl = "http://192.168.0.113:8000/"
   const selectEpisode = (episode: IEpisodes) => {
     setEpisode(episode);
-    if (episode.playerURL) {    
-      setPlayer(episode.playerURL);
+    if (episode.player) {    
+      setPlayer(episode.player);
     } else {
-      setPlayer(`${episode.playerURL}`);
+      setPlayer(`${episode.player}`);
     }
     // Atualiza a chave única para forçar a recarga do player
     setKey(prevKey => prevKey + 1);
@@ -67,7 +67,7 @@ export default function PagePlayer({ }: PlayerProps) {
       http.get(`Movies/?movie=${id}`) // pega o filme
         .then(returnMovie => {
           setMovie(returnMovie.data.results[0]);
-          setPlayer(`${returnMovie.data.results[0].playerURL}`)
+          setPlayer(`${returnMovie.data.results[0].player}`)
         })
         .catch(erro => {
 
@@ -109,7 +109,7 @@ export default function PagePlayer({ }: PlayerProps) {
             <SectionOneSectionTopStyled>
               {/* PLayer */}
               <MoviePlayer
-                urlPlayer={`${player}/`}
+                urlPlayer={`${player}`}
                 poster={`${movie?.highlight}`}
                 size={movie?.file_size}
               />

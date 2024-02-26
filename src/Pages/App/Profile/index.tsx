@@ -35,7 +35,6 @@ export default function Profile({ }: ProfileProps) {
                 console.log('Erro index page');
             });
     }, []);
-
     // Use um estado para rastrear se os dados do usuário foram carregados
     const [userDataLoaded, setUserDataLoaded] = useState(false);
     // Atualize os estados quando os dados do usuário forem carregados
@@ -44,7 +43,6 @@ export default function Profile({ }: ProfileProps) {
             setUserDataLoaded(true);
         }
     }, [idUser, name, email]);
-
     // Verifique se os dados do usuário foram carregados antes de renderizar os componentes
     if (!userDataLoaded) {
         return <div>Carregando...</div>;
@@ -61,51 +59,90 @@ export default function Profile({ }: ProfileProps) {
             navigate("/");
         }
     };
+    const onDeleteAccount = () => {
+        http.delete("Accounts")
+            .then(() => {
+                console.log("Conta excluída com sucesso.");
+                sessionStorage.removeItem("token");
+                navigate("/");
+            })
+            .catch((error) => {
+                console.error("Erro ao excluir a conta:", error);
+            });
+    };
+    const modalAction = () => {
+        const myElement = document.getElementById('my_modal_1') as HTMLDialogElement;
+        if (myElement) {
+            myElement.showModal();
+        }
+    }
+
     return (
         <ContainerMaster>
             <Container>
-                <SectionTwoStyled>
+                <SectionOneStyled>
                     <ProfileStyled>
                         <ul className="menu bg-base-200 rounded-box">
                             <li>
-                                <a
-                                    className={selectedSection === "profile" ? "selected" : ""}
-                                    onClick={() => setSelectedSection("profile")}
-                                >
+                                <a className={selectedSection === "profile" ? "selected" : ""}
+                                    onClick={() => setSelectedSection("profile")}>
                                     <CgProfile />
                                     Perfil
                                 </a>
                             </li>
                             <li>
-                                <a
-                                    className={selectedSection === "password" ? "selected" : ""}
-                                    onClick={() => setSelectedSection("password")}
-                                >
+                                <a className={selectedSection === "password" ? "selected" : ""}
+                                    onClick={() => setSelectedSection("password")} >
                                     <MdPassword />
                                     Senha
                                 </a>
                             </li>
-                            <div className="divider"></div>
-                            <button className="btn btn-outline btn-error btn-exit">
-                                <i> <IoMdExit /></i>
-                                Deletar conta
-                            </button>
-                            <button onClick={() => onLogout()} className="btn btn-exit bg-exit">
-                                <i> <IoMdExit /></i>
-                                Sair
-                            </button>
                         </ul>
+                        <div className="content-users">
+                            <div className="forms">
+                                {selectedSection === "profile" && (
+                                    <FormUser IdUser={idUser} Name={name} Email={email} action="profile" />
+                                )}
+                                {selectedSection === "password" && (
+                                    <FormUser IdUser={idUser} Name={name} Email={email} action="password" />
+                                )}
+                            </div>
+
+                            <div className="buttons">
+                                <div className="divider"></div>
+                                <button className="btn btn-outline btn-error btn-exit" onClick={() => modalAction()}>
+                                    <i> <IoMdExit /></i>
+                                    Deletar conta
+                                </button>
+                                <button onClick={() => onLogout()} className="btn btn-exit bg-exit">
+                                    <i> <IoMdExit /></i>
+                                    Sair
+                                </button>
+                            </div></div>
+                        <dialog id="my_modal_1" className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Atenção!</h3>
+                                <p className="py-4">Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
+                                <div className="modal-action">
+                                    <form method="dialog">
+
+                                        <button
+                                            className="btn bg-accent text-white mr-2">
+                                            Cancelar
+                                        </button>
+                                        <button onClick={() => onDeleteAccount}
+                                            className="btn  bg-exit text-white">
+                                            Confirmar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </ProfileStyled>
-                </SectionTwoStyled>
-                <SectionOneStyled>
-                    {selectedSection === "profile" && (
-                        <FormUser IdUser={idUser} Name={name} Email={email} action="profile" />
-                    )}
-                    {selectedSection === "password" && (
-                        <FormUser IdUser={idUser} Name={name} Email={email} action="password" />
-                    )}
+
                 </SectionOneStyled>
             </Container>
+
         </ContainerMaster>
     );
 }

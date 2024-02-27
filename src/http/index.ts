@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://coliseu.bitware.tec.br/api-coliseu/",
+  baseURL: "https://coliseu.bitware.tec.br/api-coliseu/",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

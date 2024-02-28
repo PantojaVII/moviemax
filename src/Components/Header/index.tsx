@@ -16,19 +16,19 @@ export default function Header() {
   const { user } = useAuthContext();
   let navigate = useNavigate();
 
-  // Obtém o nome do usuário armazenado no sessionStorage
-  const nameUser = sessionStorage.getItem("name_user");
+  // Obtém o nome do usuário armazenado no localStorage
+  const nameUser = localStorage.getItem("name_user_moviemax");
 
   // Verifica se o nome do usuário está definido
   const initials = nameUser ? nameUser.slice(0, 2).toUpperCase() : '';
 
   const onLogout = () => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token_moviemax");
 
     if (token) {
       console.log("Usuário está logado. Realize o logout.");
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("name_user");
+      localStorage.removeItem("token_moviemax");
+      localStorage.removeItem("name_user");
       navigate("/");
     } else {
       console.log("Usuário não está logado.");

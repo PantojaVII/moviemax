@@ -22,7 +22,7 @@ export default function FormUser({ action, IdUser, Name, Email }: FormUserProps)
     const [newPassword, setNewPassword] = useState("");
     const [error, setError] = useState("");
     const [errors, setErrors] = useState<string[]>([]); // Estado para armazenar a mensagem de erro
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token_moviemax");
     const { showToast, dismissToast, openLoad } = useNotification();
     const navigate = useNavigate();
 

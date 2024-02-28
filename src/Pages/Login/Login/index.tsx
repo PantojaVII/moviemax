@@ -7,7 +7,7 @@ import {useEffect} from "react"
 
 export default function Login() {
   const img = "/cover01.png";
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token_moviemax");
   const navigate = useNavigate();
 
 

@@ -48,11 +48,11 @@ export default function Profile({ }: ProfileProps) {
         return <div>Carregando...</div>;
     }
     const onLogout = () => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token_moviemax");
 
         if (token) {
             console.log("Usuário está logado. Realize o logout.");
-            sessionStorage.removeItem("token");
+            localStorage.removeItem("token");
             navigate("/");
         } else {
             console.log("Usuário não está logado.");
@@ -63,7 +63,7 @@ export default function Profile({ }: ProfileProps) {
         http.delete("Accounts")
             .then(() => {
                 console.log("Conta excluída com sucesso.");
-                sessionStorage.removeItem("token");
+                localStorage.removeItem("token");
                 navigate("/");
             })
             .catch((error) => {

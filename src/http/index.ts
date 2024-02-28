@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "https://coliseu.bitware.tec.br/api-coliseu/",
+  baseURL: "https://192.168.0.110/api-coliseu/",
+  /* baseURL: "https://coliseu.bitware.tec.br/api-coliseu/", */
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -11,7 +12,7 @@ const http = axios.create({
 // Interceptor de requisição
 http.interceptors.request.use(
   function (config) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token_moviemax");
     if (token && config.headers) {
       config.headers.Authorization = `Token ${token}`;
     }
@@ -28,14 +29,14 @@ http.interceptors.response.use(
     return response;
   },
   function (error) {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token_moviemax");
     if (token) {
       // Aqui você pode tratar os erros de resposta
       if (error.response) {
         // O servidor respondeu com um status de erro
         console.error(error.response.data.error);
         // Desloga o usuário
-        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
         window.location.href = "/login";
       }
     }

@@ -13,8 +13,8 @@ export default function AuthProvider({ children }: AuthProviderType) {
   const [user, setUser] = useState<UserI | null>(null);
 
   useEffect(() => {
-    // Recupere o token da sessionStorage
-    const token = sessionStorage.getItem("token");
+    // Recupere o token da localStorage
+    const token = localStorage.getItem("token_moviemax");
 
     if (token) {
       

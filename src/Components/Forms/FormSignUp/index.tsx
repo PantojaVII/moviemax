@@ -39,8 +39,8 @@ export default function FormSignUp() {
         http
           .post("login/login/", userLogin)
           .then((response) => {
-            sessionStorage.setItem("token", response.data.token);
-            sessionStorage.setItem("name_user", response.data.name);
+            localStorage.setItem("token_moviemax", response.data.token);
+            localStorage.setItem("name_user_moviemax", response.data.name);
             navigate("/app");
           })
           .catch((erro) => {

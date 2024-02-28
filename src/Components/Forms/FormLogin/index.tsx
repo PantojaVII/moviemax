@@ -33,8 +33,9 @@ export default function FormLogin() {
     http
       .post("login/login/", user)
       .then((response) => {
-        sessionStorage.setItem("token", response.data.token);
-        sessionStorage.setItem("name_user", response.data.name);
+
+        localStorage.setItem("token_moviemax", response.data.token);
+        localStorage.setItem("name_user_moviemax", response.data.name);
         setEmail("");
         setPassword("");
         navigate("/app");

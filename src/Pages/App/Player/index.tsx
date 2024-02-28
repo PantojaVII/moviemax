@@ -112,6 +112,7 @@ export default function PagePlayer({ }: PlayerProps) {
                 urlPlayer={`${player}`}
                 poster={`${movie?.highlight}`}
                 size={movie?.file_size}
+                duration={movie?.duration}
               />
               {/* End PLayer */}
               {/* Info */}

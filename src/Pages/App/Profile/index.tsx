@@ -118,7 +118,8 @@ export default function Profile({ }: ProfileProps) {
                                     <i> <IoMdExit /></i>
                                     Sair
                                 </button>
-                            </div></div>
+                            </div>
+                        </div>
                         <dialog id="my_modal_1" className="modal">
                             <div className="modal-box">
                                 <h3 className="font-bold text-lg">Atenção!</h3>
@@ -130,7 +131,7 @@ export default function Profile({ }: ProfileProps) {
                                             className="btn bg-accent text-white mr-2">
                                             Cancelar
                                         </button>
-                                        <button onClick={() => onDeleteAccount}
+                                        <button onClick={onDeleteAccount}
                                             className="btn  bg-exit text-white">
                                             Confirmar
                                         </button>

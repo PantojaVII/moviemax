@@ -16,12 +16,19 @@ export default function Header() {
   const { user } = useAuthContext();
   let navigate = useNavigate();
 
+  // Obtém o nome do usuário armazenado no sessionStorage
+  const nameUser = sessionStorage.getItem("name_user");
+
+  // Verifica se o nome do usuário está definido
+  const initials = nameUser ? nameUser.slice(0, 2).toUpperCase() : '';
+
   const onLogout = () => {
     const token = sessionStorage.getItem("token");
 
     if (token) {
       console.log("Usuário está logado. Realize o logout.");
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("name_user");
       navigate("/");
     } else {
       console.log("Usuário não está logado.");
@@ -64,14 +71,15 @@ export default function Header() {
           <Link to={"search"}> <BsSearch /></Link>
         </div>
         <div className="dropdown dropdown-bottom dropdown-end">
-          <div tabIndex={0} role="button" className="btn avatar">
-            <summary className="btn">
-              <div className="avatar">
-                <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src="https://github.com/pantojavii.png" alt="Avatar do Usuário" />
-                </div>
+          <div tabIndex={0} role="button" className="btn avatar-block">
+
+            <div className="avatar placeholder">
+              <div className="bg-primary text-white rounded-full w-8">
+                <span className="text-avatar">{initials}</span>
               </div>
-            </summary>
+            </div>
+            
+
           </div>
           <ul className="p-2  shadow menu dropdown-content z-[1] bg-secondary rounded-box w-52 right-0 left-auto">
             <li className="options">

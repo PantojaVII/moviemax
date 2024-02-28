@@ -34,6 +34,7 @@ export default function FormLogin() {
       .post("login/login/", user)
       .then((response) => {
         sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("name_user", response.data.name);
         setEmail("");
         setPassword("");
         navigate("/app");

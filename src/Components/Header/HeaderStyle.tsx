@@ -28,9 +28,13 @@ const HeaderStyle = styled.header`
     font-size: 24px;
   }
 
-  .avatar {
+  .avatar-block {
+ 
     width: 24px;
     margin-right: 16px;
+  }
+  .text-avatar{
+    color: white;
   }
   .options{
     display: flex;
@@ -43,9 +47,15 @@ const HeaderStyle = styled.header`
   
   /* Para o avatar */
   summary {
-    background-color: transparent;
+    background-color: white;
+    width: 100%;
+    height: 100%;
     border-style: none;
+    display: flex;
+    justify-content: center;
+    
   }
+  
   @media (max-width: 900px) {
     justify-content: space-between;
     position: fixed;

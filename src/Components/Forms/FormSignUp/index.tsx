@@ -40,6 +40,7 @@ export default function FormSignUp() {
           .post("login/login/", userLogin)
           .then((response) => {
             sessionStorage.setItem("token", response.data.token);
+            sessionStorage.setItem("name_user", response.data.name);
             navigate("/app");
           })
           .catch((erro) => {

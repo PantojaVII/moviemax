@@ -35,7 +35,6 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
 
   return (
     <ContainerPlayerStyled>
-      {videoLoaded ? (
         <Player poster={poster} autoPlay >
           <source src={urlVideo} />
           <track kind="subtitles" srcLang="pt-br" src="path/to/portuguese-subtitles.vtt" default />
@@ -49,14 +48,6 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
             <CurrentTimeDisplay order={4.1} />
           </ControlBar>
         </Player>
-      ) : (
-        <PosterStyled>
-          <img src={poster} alt="Movie Poster" />
-          <PlayerStyledShadow />
-
-          <StartStyled onClick={handleStartClick}><FaPlay /></StartStyled>
-        </PosterStyled>
-      )}
     </ContainerPlayerStyled>
 
   );

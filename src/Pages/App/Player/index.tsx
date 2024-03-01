@@ -108,7 +108,7 @@ export default function PagePlayer({ }: PlayerProps) {
           {movie ?
             <SectionOneSectionTopStyled>
               {/* PLayer */}
-              <h1>{player}</h1>
+               
               <MoviePlayer
                 urlPlayer={`${player}`}
                 poster={`${movie?.highlight}`}

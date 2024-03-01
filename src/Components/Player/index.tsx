@@ -37,7 +37,6 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
     <ContainerPlayerStyled>
         <Player poster={poster} autoPlay >
           <source src={urlVideo} />
-          <track kind="subtitles" srcLang="pt-br" src="path/to/portuguese-subtitles.vtt" default />
           <BigPlayButton position="center" />
           <ControlBar>
             <PlayToggle />

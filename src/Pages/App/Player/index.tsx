@@ -90,7 +90,7 @@ export default function PagePlayer({ }: PlayerProps) {
           setEpisodes(returnSerie.data.results[0].season_set[0].episodes);
           setViewEpisodes(returnSerie.data.results[0].season_set[0].episodes)
           setEpisode(returnSerie.data.results[0].season_set[0].episodes[0]);
-          setPlayer(`${baseUrl}episode/stream/${returnSerie.data.results[0].season_set[0].episodes[0].id}`);
+          setPlayer(`${returnSerie.data.results[0].season_set[0].episodes[0].player}`);
           setSeasonSelected(1)
         })
         .catch(erro => {
@@ -158,6 +158,7 @@ export default function PagePlayer({ }: PlayerProps) {
             :
             <SectionOneSectionTopStyled>
               {/* PLayer */}
+              <h1>{player}</h1>
               <MoviePlayer
                 key={key}
                 urlPlayer={`${player}`}

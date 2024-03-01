@@ -11,44 +11,53 @@ import {
   TimeDivider,
   PlaybackRateMenuButton,
   VolumeMenuButton,
-  PlayToggle
+  PlayToggle,
 
 } from 'video-react';
 import 'video-react/dist/video-react.css';
 
 interface MoviePlayerProps {
   urlPlayer: string;
-  duration?:string;
+  duration?: string;
   size?: number;
   poster: string;
-  
+
 }
 
 export default function MoviePlayer({ poster, size, urlPlayer, duration }: MoviePlayerProps) {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
-  /* const urlVideo = urlPlayer; */
   const urlVideo = urlPlayer;
+
 
   const handleStartClick = () => {
     setVideoLoaded(true);
   };
- 
+
   return (
     <ContainerPlayerStyled>
-      
-      <Player poster={poster} autoPlay >
-        <source src={urlVideo} />
-        <BigPlayButton position="center" />
-        <ControlBar>
-          <PlayToggle />
-          <ReplayControl seconds={10} />
-          <ForwardControl seconds={10} />
-          <VolumeMenuButton vertical />
-          <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
-          <CurrentTimeDisplay order={4.1} />
-        </ControlBar>
-      </Player>
+      {videoLoaded ? (
+        <Player poster={poster} autoPlay >
+          <source src={urlVideo} />
+          <track kind="subtitles" srcLang="pt-br" src="path/to/portuguese-subtitles.vtt" default />
+          <BigPlayButton position="center" />
+          <ControlBar>
+            <PlayToggle />
+            <ReplayControl seconds={10} />
+            <ForwardControl seconds={10} />
+            <VolumeMenuButton vertical />
+            <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+            <CurrentTimeDisplay order={4.1} />
+          </ControlBar>
+        </Player>
+      ) : (
+        <PosterStyled>
+          <img src={poster} alt="Movie Poster" />
+          <PlayerStyledShadow />
 
+          <StartStyled onClick={handleStartClick}><FaPlay /></StartStyled>
+        </PosterStyled>
+      )}
     </ContainerPlayerStyled>
+
   );
 }

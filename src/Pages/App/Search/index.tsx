@@ -24,7 +24,7 @@ export default function Search({ }: SearchProps) {
     const [search, setSearch] = useState<string>("");
     const [Results, setResults] = useState<IMovies[]>([]);
 
-    const fetchData = () => {
+    const searchData = () => {
         http.get(`search/?q=${search}`)  // Adiciona a query de busca ao URL
             .then(returnMovies => {
                 setResults(returnMovies.data.results);
@@ -36,9 +36,8 @@ export default function Search({ }: SearchProps) {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();  // Evita que o formulário seja enviado
-
         // Chama a função de busca
-        fetchData();
+        searchData();
     };
 
     return (

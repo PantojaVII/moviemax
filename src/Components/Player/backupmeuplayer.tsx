@@ -3,6 +3,7 @@ import { FaPlay, FaStop } from "react-icons/fa";
 import { FaVolumeHigh } from "react-icons/fa6";
 import { SlSizeFullscreen } from "react-icons/sl";
 import http from '../../http';
+
 import { ContainerControllsStyled, ContainerPlayerStyled, Fullscreen, Play, PlayerStyled, PlayerStyledShadow, Range, Volume } from "./PlayerStyled";
 
 interface MoviePlayerProps {

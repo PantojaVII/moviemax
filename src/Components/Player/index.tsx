@@ -27,15 +27,12 @@ interface MoviePlayerProps {
 export default function MoviePlayer({ poster, size, urlPlayer, duration }: MoviePlayerProps) {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const urlVideo = urlPlayer;
-
-
-  const handleStartClick = () => {
-    setVideoLoaded(true);
-  };
+/*   const urlVideo = 'https://bucket.bitware.tec.br/movies/b095e90c1fa2baf/Godzilla%20vs.%20Kong%20WEB-DL%201080p%20DUAL%205.1.mkv'; */
 
   return (
     <ContainerPlayerStyled>
-        <Player poster={poster} autoPlay >
+      <h1>{urlVideo}</h1>
+        <Player poster={poster}>
           <source src={urlVideo} />
           <BigPlayButton position="center" />
           <ControlBar>

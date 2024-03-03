@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  /* baseURL: "http://192.168.0.110:8080/api-coliseu/", */
+ /*  baseURL: "http://192.168.0.110:8080/api-coliseu/", */
   baseURL: "https://coliseu.bitware.tec.br/api-coliseu/",
   headers: {
     Accept: "application/json",
@@ -36,7 +36,7 @@ http.interceptors.response.use(
         // O servidor respondeu com um status de erro
         console.error(error.response.data.error);
         // Desloga o usuário
-        localStorage.removeItem("token");
+        localStorage.removeItem("token_moviemax");
         window.location.href = "/login";
       }
     }

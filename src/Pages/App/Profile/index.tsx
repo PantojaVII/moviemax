@@ -52,7 +52,7 @@ export default function Profile({ }: ProfileProps) {
 
         if (token) {
             console.log("Usuário está logado. Realize o logout.");
-            localStorage.removeItem("token");
+            localStorage.removeItem("token_moviemax");
             navigate("/");
         } else {
             console.log("Usuário não está logado.");
@@ -63,7 +63,7 @@ export default function Profile({ }: ProfileProps) {
         http.delete("Accounts")
             .then(() => {
                 console.log("Conta excluída com sucesso.");
-                localStorage.removeItem("token");
+                localStorage.removeItem("token_moviemax");
                 navigate("/");
             })
             .catch((error) => {

@@ -24,7 +24,7 @@ http.interceptors.request.use(
 
     /* A função de callback passada como o primeiro argumento de .use é executada antes de cada solicitação. Essa função recebe o objeto de configuração da solicitação como seu primeiro argumento (config). */
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token_moviemax");
      
     if (token && config.headers) {
       /* 

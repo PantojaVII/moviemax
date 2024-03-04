@@ -31,9 +31,7 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
   return (
     <ContainerPlayerStyled>
       <Player poster={poster} autoPlay={false}>
-        <source src={urlVideo}/>
-        <track kind="captions" src={urlVideo} srcLang="pt-BR" label="Português (Brasil)" default />
-        {/* Adicione outras faixas de legendas conforme necessário */}
+        <source src={urlVideo} />
         <BigPlayButton position="center" />
         <ControlBar>
           <PlayToggle />
@@ -45,7 +43,6 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
         </ControlBar>
       </Player>
     </ContainerPlayerStyled>
-
 
 
   );

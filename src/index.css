@@ -280,6 +280,9 @@ span {
 
   flex-wrap: wrap;
 }
+.card-trailer{
+  width: 100%;
+}
 /* Permite que os itens quebrem para a próxima linha */
 @media (max-width: 600px) {
   .search-result {

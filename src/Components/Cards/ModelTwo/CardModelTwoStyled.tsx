@@ -48,9 +48,19 @@ const CardMovieModelTwoStyled = styled.div<CardMovieModelTwoStyledProps>`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+ 
   .zoom .CardMovieModeltwo-info{
     padding: 8px;
   }
+  .zoom .trailer {
+  max-width: 240px;
+  overflow: hidden; /* Isso garante que qualquer conteúdo excedente seja cortado */
+}
+
+.zoom .trailer iframe {
+  width: 100%; /* Garante que o vídeo se ajuste à largura da div */
+  height: auto; /* Mantém a proporção do vídeo */
+}
   .zoom .CardMovie-Title{
     font-size: 12px;
   }

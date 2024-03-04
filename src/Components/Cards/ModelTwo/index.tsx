@@ -89,7 +89,10 @@ export default function CardMovieModelTwo({
           <a href={`/app/player/${type}/${content.id}`}>
             {showTrailer ? (
               <div className="zoom">
-                <PlayTrailer url={content?.playerTrailer}></PlayTrailer>
+                <div className="trailer">
+                  <PlayTrailer url={content?.playerTrailer}></PlayTrailer>
+                </div>
+                {/*   */}
                 <div className="CardMovie-Title ml-2 mt-4">{content.name}</div>
                 <div className="CardMovieModeltwo-info">
                   <div className="CardMovie-Rating">

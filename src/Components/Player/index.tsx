@@ -30,19 +30,23 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
 
   return (
     <ContainerPlayerStyled>
-        <Player poster={poster}>
-          <source src={urlVideo} />
-          <BigPlayButton position="center" />
-          <ControlBar>
-            <PlayToggle />
-            <ReplayControl seconds={10} />
-            <ForwardControl seconds={10} />
-            <VolumeMenuButton vertical />
-            <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
-            <CurrentTimeDisplay order={4.1} />
-          </ControlBar>
-        </Player>
+      <Player poster={poster} autoPlay={false}>
+        <source src={urlVideo}/>
+        <track kind="captions" src={urlVideo} srcLang="pt-BR" label="Português (Brasil)" default />
+        {/* Adicione outras faixas de legendas conforme necessário */}
+        <BigPlayButton position="center" />
+        <ControlBar>
+          <PlayToggle />
+          <ReplayControl seconds={10} />
+          <ForwardControl seconds={10} />
+          <VolumeMenuButton vertical />
+          <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+          <CurrentTimeDisplay order={4.1} />
+        </ControlBar>
+      </Player>
     </ContainerPlayerStyled>
+
+
 
   );
 }

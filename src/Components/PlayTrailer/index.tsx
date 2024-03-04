@@ -1,11 +1,18 @@
 import Plyr, { APITypes } from "plyr-react";
 import { useRef } from "react";
-import PlayTrailerStyled from "./PlayTrailer";
-interface PlayTrailerProps {
-    url: string
-}
-export default function PlayTrailer({ url }: PlayTrailerProps) {
+import styled from "styled-components";
 
+interface PlayTrailerProps {
+    url: string;
+}
+
+const PlyrContainer = styled.div`
+    width: 100%; /* Ajuste a largura conforme necessário */
+    height: 100%; /* Ajuste a altura conforme necessário */
+    overflow: hidden;
+`;
+
+export default function PlayTrailer({ url }: PlayTrailerProps) {
     const ref = useRef<APITypes>(null);
 
     const videoOptions = {
@@ -14,27 +21,22 @@ export default function PlayTrailer({ url }: PlayTrailerProps) {
         loop: { active: false },
         volume: 0.4,
     };
-    const plyrVideo = url ? (
-        <Plyr
-            ref={ref}
-            options={videoOptions}
-            source={{
-                type: "video",
-                sources: [
-                    {
-                        src: url,
-                        provider: "youtube"
-                    }
-                ]
-            }}
-        />
-    ) : null;
+
     return (
-        <PlayTrailerStyled>{plyrVideo}</PlayTrailerStyled>
-        /*         <PlayTrailerStyled
-                    src={`${url}modestbranding=1`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share "
-                    
-                /> */
+        <PlyrContainer>
+            <Plyr
+                ref={ref}
+                options={videoOptions}
+                source={{
+                    type: "video",
+                    sources: [
+                        {
+                            src: url,
+                            provider: "youtube"
+                        }
+                    ]
+                }}
+            />
+        </PlyrContainer>
     );
 }

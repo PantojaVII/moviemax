@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaPlay } from "react-icons/fa";
 import { ContainerPlayerStyled, PosterStyled, PlayerStyledShadow, StartStyled } from "./PlayerStyled";
+
 import {
   Player,
   BigPlayButton,
@@ -26,12 +27,16 @@ interface MoviePlayerProps {
 
 export default function MoviePlayer({ poster, size, urlPlayer, duration }: MoviePlayerProps) {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
-  const urlVideo = urlPlayer;
+  const urlVideo = `${urlPlayer}`;
 
   return (
     <ContainerPlayerStyled>
-      <Player poster={poster} autoPlay={false}>
-        <source src={urlVideo} />
+      <Player
+        poster={poster}
+        autoPlay={false}
+        src={urlVideo}
+        
+      >
         <BigPlayButton position="center" />
         <ControlBar>
           <PlayToggle />

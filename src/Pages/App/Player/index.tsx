@@ -159,7 +159,7 @@ export default function PagePlayer({ }: PlayerProps) {
             :
             <SectionOneSectionTopStyled>
               {/* PLayer */}
-              <h1>{player}</h1>
+               
               <MoviePlayer
                 key={key}
                 urlPlayer={`${player}`}

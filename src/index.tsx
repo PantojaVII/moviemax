@@ -8,9 +8,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Router />
-  </React.StrictMode>
+  <Router />
 );
 
 // If you want to start measuring performance in your app, pass a function

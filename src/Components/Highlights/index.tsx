@@ -9,7 +9,7 @@ interface HighlightsProps {
 }
 
 export default function Highlights({ movieHighlight }: HighlightsProps) {
-  console.log(movieHighlight);
+   
   return (
     <>
       <HighlightsStyled $backgroundImg={movieHighlight.highlight}>

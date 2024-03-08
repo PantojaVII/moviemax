@@ -11,63 +11,111 @@ import http from "../../../http";
 import CardMovieModelTwo from "../../../Components/Cards/ModelTwo";
 import ContainerMaster from "../../../Components/Container/ContainerMaster";
 import ISeries from "../../../Interfaces/ISeries";
+import IGenres from "../../../Interfaces/IGenre";
 
 const SectionOneSectionTopStyled = styled.div``;
 
+interface MovieType {
+  genre: string;
+  movies: IMovies[];
+}
+interface SerieType {
+  genre: string;
+  series: ISeries[];
+}
 interface HomeProps { }
 export default function Home({ }: HomeProps) {
   /* Movies */
   const [highlight, setHighlight] = useState<IMovies>();
   const [recentsmovies, setRecentsMovies] = useState<IMovies[]>([]);
   const [bestmovies, setBestMovies] = useState<IMovies[]>([]);
-  const [actionMovies, setActionMovies] = useState<IMovies[]>([]);
-  const [adventureMovies, setAdventureMovies] = useState<IMovies[]>([]);
+  const [Movies, setMovies] = useState<MovieType[]>([]);
+
   /* Series */
   const [bestSeries, setBestSeries] = useState<ISeries[]>([]);
-  const [dramaSeries, setDramaSeries] = useState<ISeries[]>([]);
+  const [series, setSeries] = useState<SerieType[]>([]);
 
+
+
+
+  // Função para adicionar um novo filme ao estado Movies
+  const addMovie = (genreMovies: MovieType) => {
+    // Verifica se já existem 3 filmes no estado
+    if (Movies.length < 3) {
+      setMovies(prevMovies => [...prevMovies, genreMovies]);
+    }
+  };
+  // Função para adicionar um novo filme ao estado Movies
+  const addSerie = (genreSeries: SerieType) => {
+    if (series.length < 3) {
+      setSeries(prevSeries => [...prevSeries, genreSeries]);
+    }
+  };
 
 
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        /* Searching movies */
+        /* Movies */
         const recentsmoviesResponse = await http.get('Movies/');
         const bestmoviesResponse = await http.get('Movies/?search=&content=rating');
-        const actionmoviesResponse = await http.get('Movies/?search=4c3b73f1b58a023ed4b778449d40d492f873490b147046eca3162f15c93b6f18&content=genres');
-        const adventuremoviesResponse = await http.get('Movies/?search=642f6dfe13a7de8916a4230b7f3916b6490b0db48f058e531bca12a79c70605b&content=genres');
-
-        
-        /* Searching series */
-        const bestSeriesResponse = await http.get('Series/?search=&content=rating');
-        const dramaSeriesResponse = await http.get('Series/?search=03699bddc4d3df28c9ceb2280d1d264e61e82cee01dad16ff7910e455623dd4c&content=genres');
-        
-        /* movies */
-        setRecentsMovies(recentsmoviesResponse.data.results);
-        setBestMovies(bestmoviesResponse.data.results);
-        setActionMovies(actionmoviesResponse.data.results);
-        setAdventureMovies(adventuremoviesResponse.data.results);
-        
-        /* Series */
-        setBestSeries(bestSeriesResponse.data.results);
-        setDramaSeries(dramaSeriesResponse.data.results);
-        
-        /* Highlight */
+        const bestMoviesLimited = bestmoviesResponse.data.results.slice(0, 4);
         setHighlight(recentsmoviesResponse.data.results[0]);
+        setRecentsMovies(recentsmoviesResponse.data.results);
+        setBestMovies(bestMoviesLimited);
+
+        /* Series */
+        const bestSeriesResponse = await http.get('Series/?search=&content=rating');
+        setBestSeries(bestSeriesResponse.data.results)
+
+        /* Search movies for category */
+        if (Movies.length < 3) {
+          /* Escolhendo um gênero aleatório */
+          const genresResponse = await http.get<IGenres[]>('Genres/');
+          const genres: IGenres[] = genresResponse.data;
+          /* Verificando quantos gêneros existem */
+          const availableGenresCount = Math.min(genres.length, 3);
+
+          // Escolhe até 3 gêneros aleatórios
+          const randomIndexes: number[] = [];
+          while (randomIndexes.length < 3) {
+            const randomIndex = Math.floor(Math.random() * genres.length);
+            if (!randomIndexes.includes(randomIndex)) {
+              randomIndexes.push(randomIndex);
+            }
+          }
+          for (const randomIndex of randomIndexes) {
+            const randomGenre = genres[randomIndex];
+            const MoviesGenre = await http.get(`Movies/?search=${randomGenre.hashed_id}&content=genres`);
+            const SeriesGenre = await http.get(`Series/?search=${randomGenre.hashed_id}&content=genres`);
+            // Adiciona um objeto ao array temporário com o nome do gênero e os filmes encontrados
+            const genreMovies: MovieType = {
+              genre: randomGenre.name,
+              movies: MoviesGenre.data.results
+            };
+            const genreSeries: SerieType = {
+              genre: randomGenre.name,
+              series: SeriesGenre.data.results
+            };
+            if (Movies.length < 3) {
+              // Adiciona o novo filme ao estado
+              addMovie(genreMovies);
+            }
+            if (series.length < 3) {
+              // Adiciona o novo filme ao estado
+              addSerie(genreSeries);
+            }
+          }
+        }
 
       } catch (error) {
- 
+
       }
     };
 
     fetchMovies();
   }, []);
-
-  
-
-
-
   return (
 
     <ContainerMaster>
@@ -92,26 +140,24 @@ export default function Home({ }: HomeProps) {
         <SectionOneStyled>
 
           {/* Movies */}
-          <SectionSlide title="Melhores Avaliados">
-            {bestmovies.map((movie) => (
-              <CardMovieModelTwo key={movie.id} movie={movie} />
-            ))}
-          </SectionSlide>
-          <SectionSlide title="Filmes de Ação">
-            {actionMovies.map((movie) => (
-              <CardMovieModelTwo key={movie.id} movie={movie} />
-            ))}
-          </SectionSlide>
-          <SectionSlide title="Canais de TV">
-            {adventureMovies.map((movie) => (
-              <CardMovieModelTwo key={movie.id} movie={movie} />
-            ))}
-          </SectionSlide>
-          <SectionSlide title="Filmes de Aventura">
-            {adventureMovies.map((movie) => (
-              <CardMovieModelTwo key={movie.id} movie={movie} />
-            ))}
-          </SectionSlide>
+          {Movies.map((genreItem, index) => (
+            genreItem.movies.length > 0 && (
+              index % 2 === 0 ? (
+                <SectionSlide key={index} title={genreItem.genre}>
+                  {genreItem.movies.map((movie, movieIndex) => (
+                    <CardMovieModelOne movie={movie} />
+                  ))}
+                </SectionSlide>
+              ) : (
+                <SectionSlide key={index} title={genreItem.genre}>
+                  {genreItem.movies.map((movie, movieIndex) => (
+                    <CardMovieModelTwo movie={movie} />
+                  ))}
+                </SectionSlide>
+              )
+            )
+          ))}
+
 
           {/* Series */}
           <SectionSlide title="Melhores Séries">
@@ -119,12 +165,24 @@ export default function Home({ }: HomeProps) {
               <CardMovieModelTwo key={serie.id} serie={serie} />
             ))}
           </SectionSlide>
-          <SectionSlide title="Series dramáticas">
-            {dramaSeries.map((serie) => (
-              <CardMovieModelTwo key={serie.id} serie={serie} />
-            ))}
-          </SectionSlide>
-
+          {/* Movies */}
+          {series.map((genreItem, index) => (
+            genreItem.series.length > 0 && (
+              index % 2 === 0 ? (
+                <SectionSlide key={index} title={genreItem.genre}>
+                  {genreItem.series.map((serie, movieIndex) => (
+                    <CardMovieModelOne serie={serie} />
+                  ))}
+                </SectionSlide>
+              ) : (
+                <SectionSlide key={index} title={genreItem.genre}>
+                  {genreItem.series.map((serie, movieIndex) => (
+                    <CardMovieModelTwo serie={serie} />
+                  ))}
+                </SectionSlide>
+              )
+            )
+          ))}
         </SectionOneStyled>
       </Container>
     </ContainerMaster>

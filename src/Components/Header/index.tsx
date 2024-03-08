@@ -54,15 +54,10 @@ export default function Header() {
           <Link className="h2 navbar-link" to="filmes/">
             Filmes
           </Link>
-          <Link className="h2 navbar-link" to="filmes/">
+          <Link className="h2 navbar-link" to="Series/">
             Séries
           </Link>
-          <Link className="h2 navbar-link" to="filmes/">
-            Animações
-          </Link>
-          <Link className="h2 navbar-link" to="filmes/">
-            Gêneros
-          </Link>
+
         </div>
 
       </div>

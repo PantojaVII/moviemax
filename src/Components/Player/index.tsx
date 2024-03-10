@@ -33,10 +33,10 @@ export default function MoviePlayer({ poster, size, urlPlayer, duration }: Movie
     <ContainerPlayerStyled>
       <Player
         poster={poster}
-        autoPlay={false}
-        src={urlVideo}
-        
+        autoPlay={true}
+      
       >
+        <source src={urlVideo} type="video/mp4" />
         <BigPlayButton position="center" />
         <ControlBar>
           <PlayToggle />
